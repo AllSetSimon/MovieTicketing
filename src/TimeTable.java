@@ -1,17 +1,21 @@
-import java.util.Date;
 import java.util.Hashtable;
 
-public class TimeTable /*extends Theater*/{
+public class TimeTable {
 	//변수
+	Movie movie;
+	Theater theater;
 	private String date;
 	private String startTime;
 	private int showRoomNum; // 상영관
 	private int seatCount; // 좌석개수
 	
 	//생성자
-	public TimeTable(String theaterName, String title, String date, String startTime, int showRoomNum, int seatCount) {
-		//super.setTheaterName(theaterName);
-		//super.setTitle(title);
+	public TimeTable() {
+	}
+	
+	public TimeTable(Theater theater, Movie movie, String date, String startTime, int showRoomNum, int seatCount) {
+		this.movie = movie;
+		this.theater = theater;
 		this.date = date;
 		this.startTime = startTime;
 		this.showRoomNum = showRoomNum;
@@ -19,6 +23,18 @@ public class TimeTable /*extends Theater*/{
 	}
 	
 	//메서드	
+	public Theater getTheater() {
+		return theater;
+	}
+	public void setTheater(Theater theater) {
+		this.theater = theater;
+	}
+	public Movie getMovie() {
+		return movie;
+	}
+	public void setMovie(Movie movie) {
+		this.movie = movie;
+	}
 	public String getDate() {
 		return date;
 	}
