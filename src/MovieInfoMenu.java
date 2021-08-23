@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class MovieInfoMenu {
 	Scanner sc = new Scanner(System.in);
 	MovieList movieList = new MovieList();
-	MainMenu mainMenu = new MainMenu(); 
+	//MainMenu mainMenu = new MainMenu(); 
 
 	void selectMovie() {
 		
@@ -34,7 +34,7 @@ public class MovieInfoMenu {
 				break;
 			case "q":
 			case "Q":
-				mainMenu.selectMenu();
+				//mainMenu.selectMenu();
 				break;
 			default:
 				System.out.println("잘못 누르셨습니다");
