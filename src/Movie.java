@@ -1,4 +1,3 @@
-import java.util.Date;
 
 public class Movie {
 	private String title; //제목
@@ -6,12 +5,13 @@ public class Movie {
 	private String director; //감독
 	private String actor; //출연
 	private String plot; //줄거리
-	private Date release; //개봉일(xxxx.xx.xx 식으로 표기)
+	private String release; //개봉일
 	private double rating; //관객평점
+	
 	
 	public Movie() {}
 	
-	public Movie(String title, String genre, String director, String actor, String plot, Date release, double rating) {
+	public Movie(String title, String genre, String director, String actor, String plot, String release, double rating) {
 		this.title = title;
 		this.genre = genre;
 		this.director = director;
@@ -51,10 +51,10 @@ public class Movie {
 	public void setPlot(String plot) {
 		this.plot = plot;
 	}
-	public Date getRelease() {
+	public String getRelease() {
 		return release;
 	}
-	public void setRelease(Date release) {
+	public void setRelease(String release) {
 		this.release = release;
 	}
 	public double getRating() {
