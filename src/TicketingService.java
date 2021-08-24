@@ -13,13 +13,12 @@ public class TicketingService {
 			System.out.println("3. 예매 확인 및 취소");
 			System.out.println("4. 종료");
 			System.out.println("================");
-			System.out.print("원하시는 메뉴를 선택해주세요:");
+			System.out.print("원하시는 메뉴를 선택해주세요 : ");
 			String select = sc.nextLine();
 
 		switch (select) {
 		case "1":
-			//MovieInfoMenu movieInfoMenu = new MovieInfoMenu();
-			//movieInfoMenu.selectMovie();
+			System.out.println("현재 상영중인 영화를 선택하셨습니다");
 			break;
 		case "2":
 			System.out.println("영화 예매를 선택하셨습니다");
@@ -28,9 +27,6 @@ public class TicketingService {
 			System.out.println("예매 확인 및 취소를 선택하셨습니다");
 			break;
 		case "4":
-			System.out.println("로그인 메뉴를 선택하셨습니다");
-			break;
-		case "5":
 			System.out.println("프로그램을 종료합니다");
 			System.exit(0);
 			break;

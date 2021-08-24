@@ -16,6 +16,7 @@ public class Seat {
 	private ArrayList<Integer> allSeatRangementList = new ArrayList<>(); // 선택된 모든 좌석의 번호들이 저장되는 배열
 	private ArrayList<Integer> seatRangementList = new ArrayList<>();// 한 손님이 선택한 좌석 번호
 	private int seatRangementNumbers;
+	
 	// 생성자
 	Seat() {
 	}
@@ -44,9 +45,7 @@ public class Seat {
 		}
 		for (int i = remainder; i < seatLineNumber; i++) {
 			this.seatList[LineNumber][i] = " ";
-		}
-		
-		
+		}	
 	}
 
 	// get,set메소드

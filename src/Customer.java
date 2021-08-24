@@ -76,43 +76,4 @@ public class Customer {
 			System.out.println("5.좌석번호:" + rsvList.get(selectNum - 1).getSeatNum());
 		}
 	}
-
-	/*
-	 * public void information() { Customer list = new Customer(); Movie movie = new
-	 * Movie(); list.rsvList.add(new ReserveList(movie.getTitle(), null, null, null,
-	 * null, 0)); //0
-	 * 
-	 * 
-	 * System.out.println("==================================");
-	 * System.out.println("고객님께서 선택하신 예매 정보는 다음과 같습니다."); //영화
-	 * 
-	 * for (int i = 0; i < list.rsvList.size(); i++) {
-	 * System.out.println("1.영화:"+list.rsvList.get(i).getTitle());
-	 * System.out.println("2.날짜:"+list.rsvList.get(i).getRsvDate());
-	 * System.out.println("3.상영극장:"+list.rsvList.get(i).getTheaterName());
-	 * System.out.println("4.상영관 및 시간:"+list.rsvList.get(i).getShowRoomNum()+list.
-	 * rsvList.get(i).getStartTime());
-	 * System.out.println("5.좌석번호:"+list.rsvList.get(i).getSeatNum());
-	 * System.out.println("6.가격:"); } 향상 for (ReserveList reserveList :
-	 * list.rsvList) { System.out.println(reserveList.getTitle());
-	 * System.out.println(reserveList.getRsvDate());
-	 * System.out.println(reserveList.getTheaterName());
-	 * System.out.println(reserveList.getShowRoomNum());
-	 * System.out.println(reserveList.getStartTime());
-	 * System.out.println(reserveList.getSeatNum()); }
-	 * 
-	 * System.out.println("==================================");
-	 * System.out.println("예매를 원하시면 ‘Y’ 처음으로 돌아가려면 ‘N’을 입력하세요 "); Scanner scan = new
-	 * Scanner(System.in); String ticketing = scan.nextLine();
-	 * 
-	 * switch (ticketing) { case "Y": System.out.println("예매가 완료 되었습니다."); //고객의 예매
-	 * 리스트에 정보 저장 break;
-	 * 
-	 * case "N": System.out.println("예매가 취소 되었습니다."); System.out.println("메인메뉴 출력");
-	 * break;
-	 * 
-	 * default: System.out.println("Y 또는 N 입력해주세요."); information(); break; }
-	 * scan.close(); }
-	 */
-
 }
