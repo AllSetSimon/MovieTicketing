@@ -10,6 +10,7 @@ public class MyCalendar {
 	Calendar end = Calendar.getInstance();
 	
 	
+	
 //	public static void main(String[] args) {
 //			MyCalendar mycalendar= new MyCalendar();
 //			String result = null;

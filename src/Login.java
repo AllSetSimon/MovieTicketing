@@ -28,18 +28,18 @@ public class Login {
 	
 	
 	
-	public static void main(String[] args)  {
-		Login login = new Login(); // 객체 생성
-		boolean bLogin= false;	
-		bLogin=login.loginProcess(); // 로그인 프로세스 실행
-	
-		if(bLogin) { // 로그인 성공
-			System.out.println("메인메뉴 출력");
-		}
-		else { // 로그인 실패
-			System.out.println("프로그램 종료");
-		}
-	}
+//	public static void main(String[] args)  {
+//		Login login = new Login(); // 객체 생성
+//		boolean bLogin= false;	
+//		bLogin=login.loginProcess(); // 로그인 프로세스 실행
+//	
+//		if(bLogin) { // 로그인 성공
+//			System.out.println("메인메뉴 출력");
+//		}
+//		else { // 로그인 실패
+//			System.out.println("프로그램 종료");
+//		}
+//	}
 	
 	
 	
