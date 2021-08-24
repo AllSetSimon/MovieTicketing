@@ -18,8 +18,8 @@ public class TicketingService {
 
 		switch (select) {
 		case "1":
-			MovieInfoMenu movieInfoMenu = new MovieInfoMenu();
-			movieInfoMenu.selectMovie();
+			//MovieInfoMenu movieInfoMenu = new MovieInfoMenu();
+			//movieInfoMenu.selectMovie();
 			break;
 		case "2":
 			System.out.println("영화 예매를 선택하셨습니다");
