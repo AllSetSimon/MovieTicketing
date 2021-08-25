@@ -21,7 +21,7 @@ public class SystemManager {
 		showingList.add(bossBB);
 
 		Theater lotteJamsil = new Theater("롯데시네마 잠실", "잠실");
-		Theater CGVGangnam = new Theater("CGV 강남", "강남");
+		Theater cgvGangnam = new Theater("CGV 강남", "강남");
 
 		lotteJamsil.setupTimeTable(sinkHole, new TimeTable("2021-08-15", "09:00", 5, 30));
 		lotteJamsil.setupTimeTable(sinkHole, new TimeTable("2021-08-16", "10:00", 4, 30));
@@ -30,12 +30,12 @@ public class SystemManager {
 		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-08-08", "13:00", 1, 30));
 		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-08-09", "14:00", 3, 30));
 		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-08-10", "15:00", 2, 30));
-		CGVGangnam.setupTimeTable(sinkHole, new TimeTable("2021-08-18", "16:00", 1, 30));
-	//	CGVGangnam.setupTimeTable(mogaDS, new TimeTable("2021-08-16", "17:00", 2, 30));
-		CGVGangnam.setupTimeTable(bossBB, new TimeTable("2021-08-13", "18:00", 3, 30));
+		cgvGangnam.setupTimeTable(sinkHole, new TimeTable("2021-08-18", "16:00", 1, 30));
+	//	cgvGangnam.setupTimeTable(mogaDS, new TimeTable("2021-08-16", "17:00", 2, 30));
+		cgvGangnam.setupTimeTable(bossBB, new TimeTable("2021-08-13", "18:00", 3, 30));
 
 		theaterList.add(lotteJamsil);
-		theaterList.add(CGVGangnam);
+		theaterList.add(cgvGangnam);
 
 	}
 
