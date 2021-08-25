@@ -11,6 +11,10 @@ public class SystemManager {
 		Movie sinkHole = new Movie("싱크홀", "액션", "봉찬욱", "이광수", "싱크홀줄거리", "2021-08-15", 0.0);
 		Movie bossBB = new Movie("보스베이비2", "애니메이션", "세스로건", "보스", "보스베이비줄거리", "2021-08-07", 0.0);
 		Movie mogaDS = new Movie("모가디슈", "액션", "박찬봉", "조인성", "모가디슈줄거리", "2021-08-12", 0.0);
+		
+		showingList.add(sinkHole);
+		showingList.add(mogaDS);
+		showingList.add(bossBB);
 
 		Theater lotteJamsil = new Theater("롯데시네마 잠실", "잠실");
 		Theater CGVGangnam = new Theater("CGV 강남", "강남");
@@ -29,29 +33,30 @@ public class SystemManager {
 		theaterList.add(lotteJamsil);
 		theaterList.add(CGVGangnam);
 
-		showingList.add(sinkHole);
-		showingList.add(mogaDS);
-		showingList.add(bossBB);
 	}
 
 	public void nowShowing() {
 		System.out.println("======================");
 		System.out.println("현재 상영중인 영화입니다");
 		System.out.println("======================");
+		
 		for (int i = 0; i < showingList.size(); i++) {
 			System.out.println((i + 1) + ". " + showingList.get(i).getTitle());
 		}
+		
 		System.out.println("======================");
 		Scanner sc = new Scanner(System.in);
 		System.out.print("정보를 원하시는 영화를 선택해주세요:");
 		int selNum = Integer.parseInt(sc.nextLine());
-		System.out.println("제목 :" + showingList.get(selNum - 1).getTitle() + "\n" + "장르 :"
-				+ showingList.get(selNum - 1).getGenre() + "\n" + "감독 :" + showingList.get(selNum - 1).getDirector()
-				+ "\n" + "출연진 :" + showingList.get(selNum - 1).getActor() + "\n" + "개봉일 :"
-				+ showingList.get(selNum - 1).getRelease() + "\n" + "관객평점 :" + showingList.get(selNum - 1).getRating()
-				+ "\n" + "줄거리 :" + showingList.get(selNum - 1).getPlot() + "\n");
+		System.out.println("======================");
 		
-
+		System.out.println("제목 :" + showingList.get(selNum - 1).getTitle());
+		System.out.println("장르 :" + showingList.get(selNum - 1).getGenre());
+		System.out.println("감독 :" + showingList.get(selNum - 1).getDirector());
+		System.out.println("출연진 :" + showingList.get(selNum - 1).getActor());
+		System.out.println("개봉일 :" + showingList.get(selNum - 1).getRelease());
+		System.out.println("관객평점 :" + showingList.get(selNum - 1).getRating());
+		System.out.println("줄거리 :" + showingList.get(selNum - 1).getPlot());
 	}
 
 }
