@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.Set;
@@ -11,11 +13,13 @@ public class SystemManager {
 	ArrayList<Movie> showingList = new ArrayList<Movie>();
 	ArrayList<TimeTable> timeList = new ArrayList<TimeTable>();
 	ArrayList<String> resultList = new ArrayList<String>();;
+	Map<TimeTable,Seat> seatMap = new HashMap<>();
 	
 	int selNum;
 	String mvName;
 	String theaterName;
-
+	ArrayList<Integer> seatNumberList;
+	
 	public SystemManager() {
 		// Movie m1 = new Movie(title, genre, director, actor, plot, release, rating)
 		Movie sinkHole = new Movie("싱크홀", "액션", "봉찬욱", "이광수", "싱크홀줄거리", "2021-08-15", 0.0);
@@ -29,20 +33,22 @@ public class SystemManager {
 		Theater lotteJamsil = new Theater("롯데시네마 잠실", "잠실");
 		Theater cgvGangnam = new Theater("CGV 강남", "강남");
 
-		lotteJamsil.setupTimeTable(sinkHole, new TimeTable("2021-08-15", "09:00", 5, 30));
-		lotteJamsil.setupTimeTable(sinkHole, new TimeTable("2021-08-16", "10:00", 4, 30));
-		lotteJamsil.setupTimeTable(mogaDS, new TimeTable("2021-08-12", "11:00", 7, 30));
-		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-08-07", "12:00", 6, 30));
-		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-08-08", "13:00", 1, 30));
-		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-08-09", "14:00", 3, 30));
-		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-08-10", "15:00", 2, 30));
-		cgvGangnam.setupTimeTable(sinkHole, new TimeTable("2021-08-18", "16:00", 1, 30));
+		lotteJamsil.setupTimeTable(sinkHole, new TimeTable("2021-08-15", "09:00", 5, 35));
+		lotteJamsil.setupTimeTable(sinkHole, new TimeTable("2021-08-16", "10:00", 4, 32));
+		lotteJamsil.setupTimeTable(mogaDS, new TimeTable("2021-08-12", "11:00", 7, 36));
+		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-08-07", "12:00", 6, 38));
+		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-08-08", "13:00", 1, 50));
+		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-08-09", "14:00", 3, 40));
+		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-08-10", "15:00", 2, 20));
+		cgvGangnam.setupTimeTable(sinkHole, new TimeTable("2021-08-18", "16:00", 1, 15));
 	//	cgvGangnam.setupTimeTable(mogaDS, new TimeTable("2021-08-16", "17:00", 2, 30));
-		cgvGangnam.setupTimeTable(bossBB, new TimeTable("2021-08-13", "18:00", 3, 30));
+		cgvGangnam.setupTimeTable(bossBB, new TimeTable("2021-08-13", "18:00", 3, 60));
 
 		theaterList.add(lotteJamsil);
 		theaterList.add(cgvGangnam);
-
+		
+		showSeatMapAdd();
+		
 	}
 
 	public void nowShowing(int inputNum) {
@@ -159,9 +165,29 @@ public class SystemManager {
 			System.out.print("관람을 원하는 시간표를 선택해주세요 : ");
 			int selectTime = Integer.parseInt(sc.nextLine());
 			System.out.println("=============================");
-		}		
+			showSeat(timeList.get(selectTime-1));
+		}	
 	}
 	
+	//seatMap put class
+	public void showSeatMapAdd() {
+		
+		for (int i = 0; i <theaterList.size(); i++) {
+			for (int j = 0; j <theaterList.get(i).getTimeList().size(); j++) {
+				seatMap.put(theaterList.get(i).getTimeList().get(j), new Seat(theaterList.get(i).getTimeList().get(j)));
+			}
+		}
+		
+	}
+	
+	//seat 출력 class
+	public void showSeat(TimeTable timetable) {
+		
+		seatMap.get(timetable).seatLook();
+		//선택한 좌석들 저장
+		seatNumberList.addAll(seatMap.get(timetable).getSeatRangementList());
+		
+	}
 	
 	
 	
