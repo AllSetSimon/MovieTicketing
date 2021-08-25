@@ -31,7 +31,7 @@ public class SystemManager {
 		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-08-09", "14:00", 3, 30));
 		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-08-10", "15:00", 2, 30));
 		CGVGangnam.setupTimeTable(sinkHole, new TimeTable("2021-08-18", "16:00", 1, 30));
-		CGVGangnam.setupTimeTable(mogaDS, new TimeTable("2021-08-16", "17:00", 2, 30));
+	//	CGVGangnam.setupTimeTable(mogaDS, new TimeTable("2021-08-16", "17:00", 2, 30));
 		CGVGangnam.setupTimeTable(bossBB, new TimeTable("2021-08-13", "18:00", 3, 30));
 
 		theaterList.add(lotteJamsil);
@@ -67,6 +67,7 @@ public class SystemManager {
 
 	public void showTheater(int selectNum) {
 		// mvName = showingList에서 내가 선택한 인덱스 값을 가져오도록 설정
+		mvName = showingList.get(selectNum-1).getTitle();
 
 		resultList.clear();
 
@@ -78,10 +79,19 @@ public class SystemManager {
 		 * for (int i = 0; i < 어떤게 들어와야 할지; i++) { //getMovieMap().get(key) ==> 결과값을
 		 * resultList에 add하겠다. }
 		 */
+		
+		for (int i = 0; i < theaterList.size(); i++) {
+			resultList.add(theaterList.get(i).getMovieMap().get(mvName));
+		}
 
 		// resultList를 for문을 통해서 그 안에 있는 내용을 다 꺼내는 거에요
 		// 1. 2. (index+1)값이 붙도록 --> 향상for문X
+		
+		for (int i = 0; i < resultList.size(); i++) {
+			if(resultList.get(i)!=null) {System.out.println((i+1)+"."+resultList.get(i));}
+		}
+		System.out.println("================");
+		System.out.println("관람을 원하는 극장을 선택해주세요:");
 
-		//3단계 해주세요
 	}
 }
