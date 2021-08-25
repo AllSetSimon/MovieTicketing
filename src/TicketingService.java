@@ -31,6 +31,8 @@ public class TicketingService {
 			System.out.print("관람을 원하시는 영화를 선택해주세요:");
 			selNum = Integer.parseInt(sc.nextLine());
 			sm.showTheater(selNum);
+			selNum = Integer.parseInt(sc.nextLine());
+			sm.selectecData();
 			break;
 		case "3":
 			System.out.println("예매 확인 및 취소를 선택하셨습니다");

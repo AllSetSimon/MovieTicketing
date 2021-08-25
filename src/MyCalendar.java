@@ -3,16 +3,21 @@ import java.util.Scanner;
 
 public class MyCalendar {
 
-	private String date;
-	int mYear = 2021;
-	int mMonth = 8;
-	Calendar start = Calendar.getInstance();
-	Calendar end = Calendar.getInstance();
+	int mYear ;
+	int mMonth ;
+	Calendar start ;
+	Calendar end ;
 	
 	
+	MyCalendar(int mYear ,int mMonth){
+		this.mYear = mYear;
+		this.mMonth = mMonth;
+		start = Calendar.getInstance();
+		end = Calendar.getInstance();
+	}
 	
 //	public static void main(String[] args) {
-//			MyCalendar mycalendar= new MyCalendar();
+//			MyCalendar mycalendar= new MyCalendar(2021,8);
 //			String result = null;
 //			result = mycalendar.selecteDate();
 //			System.out.println("선택된 날짜:"+result);
@@ -26,7 +31,7 @@ public class MyCalendar {
 		while (true) {
 			displayCalendar();
 			System.out.println();
-			System.out.println("날짜를 입력해주세요: (선택:숫자입력 , > : 다음달  <: 이전달)");
+			System.out.println("날짜를 선택해주세요:");
 
 			input = sc.nextLine();
 			if (input.equals(">")) {
@@ -62,7 +67,8 @@ public class MyCalendar {
 
 		START_DAY_OF_WEEK = start.get(Calendar.DAY_OF_WEEK); // 첫날에 요일 구하기 1:일요일 7:토요일
 		END_DAY = end.get(Calendar.DATE); // 마지막 일자 구하기
-		System.out.println(year + "년 " + month + "월 달력\n" + "일\t월\t화\t수\t목\t금\t토");
+		System.out.println(year + "년 " + month + "월 달력\t(>입력:다음달출력  <입력:이전달출력)");
+		System.out.println("일\t월\t화\t수\t목\t금\t토");
 
 		for (int q = 1; q < START_DAY_OF_WEEK; q++) {   // 첫날 요일 까진 공백
 			System.out.print("\t");

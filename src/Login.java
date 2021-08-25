@@ -24,7 +24,13 @@ public class Login {
 	
 	
 	static ArrayList<LoginData> loginDatas;
-	int tryCount = 2;
+	private int tryCount = 2;
+	
+	Login(){};
+	Login(int tryCount){
+	this.tryCount = tryCount;
+	}
+	
 	
 	
 	
