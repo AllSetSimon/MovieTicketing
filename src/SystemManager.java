@@ -1,14 +1,20 @@
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.Scanner;
+import java.util.Set;
 
 public class SystemManager {
 
+	Scanner sc = new Scanner(System.in);
+	
 	ArrayList<Theater> theaterList = new ArrayList<Theater>();
 	ArrayList<Movie> showingList = new ArrayList<Movie>();
+	ArrayList<TimeTable> timeList = new ArrayList<TimeTable>();
 	ArrayList<String> resultList = new ArrayList<String>();;
 	
+	int selNum;
 	String mvName;
+	String theaterName;
 
 	public SystemManager() {
 		// Movie m1 = new Movie(title, genre, director, actor, plot, release, rating)
@@ -39,7 +45,7 @@ public class SystemManager {
 
 	}
 
-	public void nowShowing() {
+	public void nowShowing(int inputNum) {
 		// 상영중인 영화 리스트 출력
 		System.out.println("======================");
 		System.out.println("현재 상영중인 영화입니다");
@@ -47,6 +53,18 @@ public class SystemManager {
 
 		for (int i = 0; i < showingList.size(); i++) {
 			System.out.println((i + 1) + ". " + showingList.get(i).getTitle());
+		}
+		
+		if(inputNum == 1) {
+			System.out.println("======================");
+			System.out.print("세부정보를 원하시는 영화를 선택해주세요:");
+			selNum = Integer.parseInt(sc.nextLine());
+			showDetail(selNum);
+		} else {
+			System.out.println("======================");
+			System.out.print("관람을 원하시는 영화를 선택해주세요:");
+			selNum = Integer.parseInt(sc.nextLine());
+			showTheater(selNum);
 		}
 
 		System.out.println("======================");
@@ -62,13 +80,11 @@ public class SystemManager {
 		System.out.println("개봉일 :" + showingList.get(selectNum - 1).getRelease());
 		System.out.println("관객평점 :" + showingList.get(selectNum).getRating());
 		System.out.println("줄거리 :" + showingList.get(selectNum - 1).getPlot());
-
 	}
 
 	public void showTheater(int selectNum) {
 		// mvName = showingList에서 내가 선택한 인덱스 값을 가져오도록 설정
 		mvName = showingList.get(selectNum-1).getTitle();
-
 		resultList.clear();
 
 		// map에서 get(key값)
@@ -90,13 +106,67 @@ public class SystemManager {
 		for (int i = 0; i < resultList.size(); i++) {
 			if(resultList.get(i)!=null) {System.out.println((i+1)+"."+resultList.get(i));}
 		}
+		
 		System.out.println("================");
-		System.out.println("관람을 원하는 극장을 선택해주세요:");
-
+		System.out.print("관람을 원하는 극장을 선택해주세요:");
+		selNum = Integer.parseInt(sc.nextLine());
+		System.out.println("================");
+		selectCalData();
 	}
-	public void selectecData() {
+	
+	public void selectCalData() {
 		MyCalendar myCalendar = new MyCalendar(2021, 8);
 		String selectedDate = myCalendar.selecteDate();
 		System.out.println("선택된 날짜 확인:" + selectedDate);
+		showTimeList(selNum);
 	}
+	
+	public void showTimeList(int selectTh) {
+		theaterName = resultList.get(selectTh-1);
+		resultList.clear();
+
+		for (int i = 0; i < theaterList.size(); i++) {
+			Set<Entry<TimeTable, String>> mapEntry = theaterList.get(i).getTimeMap().entrySet();
+			for(Entry<TimeTable, String> entry : mapEntry) {
+				if(theaterList.get(i).getTheaterName().equals(theaterName) && entry.getValue().equals(mvName)) {
+					timeList.add(entry.getKey());
+				}
+			}
+		}
+		
+		if(timeList.size() == 0) {
+			System.out.println("XXXXXXXXXXXXXXXXXXX");
+			System.out.println("조회된 시간표가 없습니다.");
+			System.out.println("XXXXXXXXXXXXXXXXXXX");
+		} else {
+			System.out.println("==============================");
+			System.out.println("해당 극장의 상영시간표는 다음과 같습니다.");
+			System.out.println("==============================");
+			for (int i = 0; i < timeList.size(); i++) {
+				if(i == 0) {
+					System.out.print("[" + timeList.get(i).getShowRoomNum() + "관] " +(i+1) + ". " + timeList.get(i).getStartTime()+ " [" + timeList.get(i).getSeatCount() + "석]");
+				} else {
+					if(timeList.get(i-1).getShowRoomNum() == timeList.get(i).getShowRoomNum()) {
+						System.out.print(" " + (i+1) + ". " + timeList.get(i).getStartTime() + " [" + timeList.get(i).getSeatCount() + "석]");				
+					} else {
+						System.out.println();
+						System.out.print("[" + timeList.get(i).getShowRoomNum() + "관] " +(i+1) + ". " + timeList.get(i).getStartTime() + " [" + timeList.get(i).getSeatCount() + "석]");
+					}
+				}
+			}			
+			System.out.println();
+			System.out.println("=============================");
+			System.out.print("관람을 원하는 시간표를 선택해주세요 : ");
+			int selectTime = Integer.parseInt(sc.nextLine());
+			System.out.println("=============================");
+		}		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }
