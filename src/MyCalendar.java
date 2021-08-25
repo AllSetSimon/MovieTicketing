@@ -1,4 +1,7 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 
 public class MyCalendar {
@@ -16,18 +19,21 @@ public class MyCalendar {
 		end = Calendar.getInstance();
 	}
 	
-//	public static void main(String[] args) {
-//			MyCalendar mycalendar= new MyCalendar(2021,8);
-//			String result = null;
-//			result = mycalendar.selecteDate();
-//			System.out.println("선택된 날짜:"+result);
-//
-//		
-//		}
+	public static void main(String[] args) {
+			MyCalendar mycalendar= new MyCalendar(2021,8);
+			Date date;
+			
+			date = mycalendar.selecteDate();
+			System.out.println(date);
 
-	public String selecteDate() { // 선택가능한 날짜 달력 출력, 날짜선택, 데이터 리턴
+		
+		}
+
+	public Date selecteDate() { // 선택가능한 날짜 달력 출력, 날짜선택, 데이터 리턴
 		Scanner sc = new Scanner(System.in);
 		String input = null;
+		Date date=null;
+		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd"); // Date<->String 간 처리 형식 지정
 		while (true) {
 			displayCalendar();
 			System.out.println();
@@ -42,14 +48,29 @@ public class MyCalendar {
 				int nInput = Integer.parseInt(input);
 				
 				if(nInput <=end.get(Calendar.DATE) && nInput > 0 ) // 선택 가능한 날짜인지 체크
-					return mYear+"-"+mMonth+"-"+input;
+					break;
 				else
 					System.out.println("유효 숫자 범위가 아닙니다.");
 			}
 			else
 				System.out.println("올바르게 입력해주세요");
-			
+				
 		}
+		
+		try {   //형식 안맞는 경우 try/catch;
+			String result =mYear+"-"+mMonth+"-"+input;
+			System.out.println(result);
+			date = sdFormat.parse(result); // String -> Date
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			System.out.println("형식이 안맞습니다.");
+			date =null;
+		}
+		String result = sdFormat.format(date); //Date -> String
+		System.out.println("선택된 날짜:"+result); 
+		return date;
+		
+		
 		
 	}
 
