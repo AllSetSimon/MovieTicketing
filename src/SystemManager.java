@@ -12,8 +12,10 @@ public class SystemManager {
 	ArrayList<Theater> theaterList = new ArrayList<Theater>();
 	ArrayList<Movie> showingList = new ArrayList<Movie>();
 	ArrayList<TimeTable> timeList = new ArrayList<TimeTable>();
-	ArrayList<String> resultList = new ArrayList<String>();;
-	Map<TimeTable,Seat> seatMap = new HashMap<>();
+	ArrayList<String> resultList = new ArrayList<String>();
+	Map<TimeTable,Seat> seatMap = new HashMap<>();	
+	ArrayList<ReserveList> informationList = new ArrayList<ReserveList>();
+	ReserveList reserveList;
 	
 	int selNum;
 	String mvName;
@@ -193,12 +195,35 @@ public class SystemManager {
 		//선택한 좌석들 저장
 		seatNumberList.addAll(seatMap.get(timetable).getSeatRangementList());
 		
+		information();
 	}
 	
-	
-	
-	
-	
-	
+	public ArrayList<ReserveList> information () {
+		reserveList = new ReserveList(mvName,date,theaterName,timetable.getShowRoomNum(),
+				timetable.getStartTime(),seatNumberList);
+		System.out.println("====================");
+		System.out.println("고객님께서 선택하신 예매 정보는 다음과 같습니다");
+		System.out.println("1.영화:" + reserveList.getTitle());
+		System.out.println("2.날짜:" + reserveList.getRsvDate());
+		System.out.println("3.상영극장:" + reserveList.getTheaterName());
+		System.out.println("4.상영관 및 시간:" + reserveList.getShowRoomNum() +"  "+ reserveList.getStartTime());
+		System.out.println("5.좌석번호:" + reserveList.getSeatNum());
+		System.out.println("====================");
+		
+		System.out.print("예매를 원하시면 ‘yes’ 처음으로 돌아가려면 ‘no’을 입력하세요 :");
+		String check = sc.nextLine();
+		System.out.println("====================");
+		
+		if("yes".equals(check)) {
+			System.out.println("예매가 완료 되었습니다.");
+			informationList.add(new ReserveList(reserveList.getTitle(),reserveList.getRsvDate(),reserveList.getTheaterName(),
+					reserveList.getShowRoomNum(),reserveList.getStartTime(),reserveList.getSeatNum()));
+			return informationList;
+			
+		}else {
+			System.out.println("예매가 취소 되었습니다.");	
+			return null;  
+		}
+	}	
 	
 }
