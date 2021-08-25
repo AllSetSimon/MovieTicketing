@@ -36,6 +36,7 @@ public class SystemManager {
 	}
 
 	public void nowShowing() {
+		//상영중인 영화 리스트 출력
 		System.out.println("======================");
 		System.out.println("현재 상영중인 영화입니다");
 		System.out.println("======================");
@@ -44,19 +45,20 @@ public class SystemManager {
 			System.out.println((i + 1) + ". " + showingList.get(i).getTitle());
 		}
 		
+		System.out.println("======================");		
+	}
+	
+	public void showDetail(int selectNum) {
+		//영화 상세정보 출력
 		System.out.println("======================");
-		Scanner sc = new Scanner(System.in);
-		System.out.print("정보를 원하시는 영화를 선택해주세요:");
-		int selNum = Integer.parseInt(sc.nextLine());
-		System.out.println("======================");
+		System.out.println("제목 :" + showingList.get(selectNum - 1).getTitle());
+		System.out.println("장르 :" + showingList.get(selectNum - 1).getGenre());
+		System.out.println("감독 :" + showingList.get(selectNum - 1).getDirector());
+		System.out.println("출연진 :" + showingList.get(selectNum - 1).getActor());
+		System.out.println("개봉일 :" + showingList.get(selectNum - 1).getRelease());
+		System.out.println("관객평점 :" + showingList.get(selectNum).getRating());
+		System.out.println("줄거리 :" + showingList.get(selectNum - 1).getPlot());
 		
-		System.out.println("제목 :" + showingList.get(selNum - 1).getTitle());
-		System.out.println("장르 :" + showingList.get(selNum - 1).getGenre());
-		System.out.println("감독 :" + showingList.get(selNum - 1).getDirector());
-		System.out.println("출연진 :" + showingList.get(selNum - 1).getActor());
-		System.out.println("개봉일 :" + showingList.get(selNum - 1).getRelease());
-		System.out.println("관객평점 :" + showingList.get(selNum - 1).getRating());
-		System.out.println("줄거리 :" + showingList.get(selNum - 1).getPlot());
 	}
 
 }
