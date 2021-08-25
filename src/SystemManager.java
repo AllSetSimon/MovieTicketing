@@ -124,6 +124,7 @@ public class SystemManager {
 	public void showTimeList(int selectTh) {
 		theaterName = resultList.get(selectTh-1);
 		resultList.clear();
+		timeList.clear();
 
 		for (int i = 0; i < theaterList.size(); i++) {
 			Set<Entry<TimeTable, String>> mapEntry = theaterList.get(i).getTimeMap().entrySet();
