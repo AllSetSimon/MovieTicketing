@@ -3,7 +3,6 @@ import java.util.Hashtable;
 
 public class TimeTable {
 	//변수
-	Movie movie;
 	private String date;
 	private String startTime;
 	private int showRoomNum; // 상영관
@@ -13,21 +12,14 @@ public class TimeTable {
 	public TimeTable() {
 	}
 	
-	public TimeTable(Movie movie, String date, String startTime, int showRoomNum, int seatCount) {
-		this.movie = movie;
+	public TimeTable(String date, String startTime, int showRoomNum, int seatCount) {
 		this.date = date;
 		this.startTime = startTime;
 		this.showRoomNum = showRoomNum;
 		this.seatCount = seatCount;
 	}
 	
-	//메서드	
-	public Movie getMovie() {
-		return movie;
-	}
-	public void setMovie(Movie movie) {
-		this.movie = movie;
-	}
+	//메서드
 	public String getDate() {
 		return date;
 	}
