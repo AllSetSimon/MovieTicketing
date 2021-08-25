@@ -30,6 +30,7 @@ public class TicketingService {
 			System.out.println("영화 예매를 선택하셨습니다");
 			//sm.nowShowing()
 			//시나리오 파일 안에 출력문 대로 입력
+			System.out.print("관람을 원하시는 영화를 선택해주세요:");
 			//selNum
 			//sm.showTheater(int selNum);
 			break;

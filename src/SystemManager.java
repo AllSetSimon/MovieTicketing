@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class SystemManager {
@@ -58,6 +59,36 @@ public class SystemManager {
 		System.out.println("俺豪老 :" + showingList.get(selectNum - 1).getRelease());
 		System.out.println("包按乞痢 :" + showingList.get(selectNum).getRating());
 		System.out.println("临芭府 :" + showingList.get(selectNum - 1).getPlot());
+		
+	}
+	
+	public void showTheater() {
+		//Scanner sc = new Scanner(System.in);
+		
+		ArrayList<String> resultList = new ArrayList<>();
+		HashMap<String, String> map = new HashMap<>();
+		for (int i = 0; i < theaterList.size(); i++) {
+			for (int j = 0; j < showingList.size(); j++) {
+				resultList.add(showingList.get(j).getTitle()); 
+				resultList.add(theaterList.get(i).getTheaterName()); 
+				
+				//map.put(showingList.get(j).getTitle(), theaterList.get(i).getTheaterName());
+			}
+		}
+	
+		/*for (String key : map.keySet()) {
+			System.out.println(key + map.get(key));
+		}*/
+		
+		for (String result : resultList) {
+			System.out.println(result);
+		}
+		
+			
+	}
+	public static void main(String[] args) {
+		SystemManager sm = new SystemManager();
+		sm.showTheater();
 		
 	}
 
