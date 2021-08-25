@@ -3,6 +3,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
+import java.sql.*;
 
 public class MyCalendar {
 
@@ -24,20 +25,18 @@ public class MyCalendar {
 			Date date;
 			
 			date = mycalendar.selecteDate();
-			System.out.println(date);
-
-		
+			System.out.println(date);	
 		}
 
 	public Date selecteDate() { // 선택가능한 날짜 달력 출력, 날짜선택, 데이터 리턴
 		Scanner sc = new Scanner(System.in);
 		String input = null;
-		Date date=null;
+		Date date = null;
 		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd"); // Date<->String 간 처리 형식 지정
 		while (true) {
 			displayCalendar();
 			System.out.println();
-			System.out.println("날짜를 선택해주세요:");
+			System.out.print("날짜를 선택해주세요:");
 
 			input = sc.nextLine();
 			if (input.equals(">")) {
@@ -57,21 +56,21 @@ public class MyCalendar {
 				
 		}
 		
-		try {   //형식 안맞는 경우 try/catch;
-			String result =mYear+"-"+mMonth+"-"+input;
-			System.out.println(result);
-			date = sdFormat.parse(result); // String -> Date
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			System.out.println("형식이 안맞습니다.");
-			date =null;
-		}
-		String result = sdFormat.format(date); //Date -> String
-		System.out.println("선택된 날짜:"+result); 
-		return date;
+//		try {   //형식 안맞는 경우 try/catch;
+//			String result =mYear+"-"+mMonth+"-"+input;
+//			//System.out.println(result);
+//			date = sdFormat.parse(result); // String -> Date
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			System.out.println("형식이 안맞습니다.");
+//			date = null;
+//		}
 		
+		String result =mYear+"-"+mMonth+"-"+input;
+		java.sql.Date transformDate = java.sql.Date.valueOf(result); // String -> Date	
 		
-		
+		//System.out.println("선택된 날짜 : " + transformDate); 
+		return transformDate;	
 	}
 
 	void displayCalendar() {

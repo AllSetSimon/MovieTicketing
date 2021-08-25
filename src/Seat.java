@@ -140,7 +140,7 @@ public class Seat {
 			System.out.println("===============================");
 			*/
 			
-			System.out.print("선택하신 좌석들입니다:");
+			System.out.print("선택하신 좌석 : ");
 			for (Integer integer : getSeatRangementList()) {
 				System.out.print(integer+",");
 			}
@@ -151,7 +151,7 @@ public class Seat {
 			
 			if(seatRangementNumbers==0) {
 				
-				System.out.println("");
+				System.out.println();
 				System.out.println("예매 최종 확인 단계로 넘어갑니다.");
 				
 				//ReserveList의 객체 생성
@@ -211,7 +211,7 @@ public class Seat {
 
 			if (seatRangementNumbers > 0 && seatRangementNumbers <= seatNumber) {
 
-				System.out.println("선택한 좌석번호 :" + seatRangementNumbers);
+				//System.out.println("선택한 좌석번호 :" + seatRangementNumbers);
 				return seatRangementNumbers;
 				
 			} else if(seatRangementNumbers == 0){

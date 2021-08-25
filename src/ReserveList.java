@@ -4,7 +4,7 @@ import java.util.Date;
 public class ReserveList {
 	//°´Ã¼º¯¼ö
 	private String title;
-	private String rsvDate;
+	private Date rsvDate;
 	private String theaterName;
 	private int showRoomNum;
 	private String startTime;
@@ -14,7 +14,7 @@ public class ReserveList {
 	ReserveList(){}
 
 	
-	public ReserveList(String title, String rsvDate, String theaterName, int showRoomNum, String startTime,
+	public ReserveList(String title, Date rsvDate, String theaterName, int showRoomNum, String startTime,
 			ArrayList<Integer> seatNum) {
 		super();
 		this.title = title;
@@ -34,11 +34,11 @@ public class ReserveList {
 		this.title = title;
 	}
 
-	public String getRsvDate() {
+	public Date getRsvDate() {
 		return rsvDate;
 	}
 
-	public void setRsvDate(String rsvDate) {
+	public void setRsvDate(Date rsvDate) {
 		this.rsvDate = rsvDate;
 	}
 

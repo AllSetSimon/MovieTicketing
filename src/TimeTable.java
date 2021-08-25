@@ -20,8 +20,13 @@ public class TimeTable {
 	}
 	
 	//¸Þ¼­µå
-	public String getDate() {
-		return date;
+//	public String getDate() {
+//		return date;
+//	}
+	
+	public Date getDate() {
+		java.sql.Date transformDate = java.sql.Date.valueOf(this.date); 
+		return transformDate;
 	}
 	public void setDate(String date) {
 		this.date = date;
