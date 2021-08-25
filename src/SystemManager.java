@@ -17,8 +17,11 @@ public class SystemManager {
 	
 	int selNum;
 	String mvName;
+	String date;
 	String theaterName;
-	ArrayList<Integer> seatNumberList;
+	TimeTable timetable;
+	ArrayList<Integer> seatNumberList = new ArrayList<Integer>();
+	int price;
 	
 	public SystemManager() {
 		// Movie m1 = new Movie(title, genre, director, actor, plot, release, rating)
@@ -130,6 +133,7 @@ public class SystemManager {
 	public void showTimeList(int selectTh) {
 		theaterName = resultList.get(selectTh-1);
 		resultList.clear();
+		
 
 		for (int i = 0; i < theaterList.size(); i++) {
 			Set<Entry<TimeTable, String>> mapEntry = theaterList.get(i).getTimeMap().entrySet();
@@ -165,6 +169,7 @@ public class SystemManager {
 			System.out.print("관람을 원하는 시간표를 선택해주세요 : ");
 			int selectTime = Integer.parseInt(sc.nextLine());
 			System.out.println("=============================");
+			timetable = timeList.get(selectTh-1);
 			showSeat(timeList.get(selectTime-1));
 		}	
 	}
@@ -182,6 +187,7 @@ public class SystemManager {
 	
 	//seat 출력 class
 	public void showSeat(TimeTable timetable) {
+		seatNumberList.clear();
 		
 		seatMap.get(timetable).seatLook();
 		//선택한 좌석들 저장
