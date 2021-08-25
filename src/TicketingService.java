@@ -20,7 +20,7 @@ public class TicketingService {
 		switch (select) {
 		case "1":
 			System.out.println("현재 상영중인 영화를 선택하셨습니다");
-			//sm.nowShowing();
+			sm.nowShowing();
 			break;
 		case "2":
 			System.out.println("영화 예매를 선택하셨습니다");
