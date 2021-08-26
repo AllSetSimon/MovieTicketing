@@ -293,14 +293,21 @@ public class SystemManager {
 		String answer = null;
 		currentCustomer = null;
 		System.out.println("로그아웃 되었습니다.");
+		while(true) {
 		System.out.println("다시 로그인 하시겠습니까? (‘yes’ , ‘no’을 입력하세요)");
 		answer = sc.nextLine();
 		if(answer.equals("yes")) {
 			loginProcess();
-			return true;
-		}else
-			return false;
+			if(currentCustomer != null)
+				return true;
+			else
+				return false;
 			
+		}else if(answer.equals("no")) {
+			return false;
+		}else
+			System.out.println("yes or no 를 입력해주세요");
+		}			
 	}
 	
 	public void checkRsv() {

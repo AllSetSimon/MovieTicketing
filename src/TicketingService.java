@@ -6,14 +6,14 @@ public class TicketingService {
 		
 		SystemManager sm = new SystemManager();		
 		Scanner sc = new Scanner(System.in);
-		boolean bFalgWhile = true;
+		boolean bFlagWhile = true;
 		sm.loginProcess();
 		
 		if(sm.getCurrentCustomer() == null) {
 			return ;
 			
 		}
-		while (bFalgWhile) {
+		while (bFlagWhile) {
 			System.out.println("==============================");
 			System.out.println("        1. 현재 상영중인 영화"); 
 			System.out.println("        2. 영화 예매");
@@ -35,10 +35,7 @@ public class TicketingService {
 			sm.checkRsv();
 			break;
 		case 4:
-			boolean bReLogin = false;
-
-			bReLogin = sm.reLogin();
-			bFalgWhile = bReLogin;
+			bFlagWhile = sm.reLogin();
 			break;
 		case 5:
 			System.out.println("프로그램을 종료합니다");
