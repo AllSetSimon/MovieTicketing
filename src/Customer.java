@@ -15,25 +15,25 @@ public class Customer {
 
 	// 예매내역과 관련한 기능에서 사용
 	private String nickname;
-	private List<ReserveList> rsvList = new ArrayList<ReserveList>();
+	private List<ReserveList> rsvList ;
 
 	// 생성자
 	Customer() {
 	}
 
-	public Customer(String id, String pwd, String nickname, List<ReserveList> rsvList) {
-		super();
-		this.id = id;
-		this.pwd = pwd;
-		this.nickname = nickname;
-		this.rsvList = rsvList;
-	}
+//	public Customer(String id, String pwd, String nickname, List<ReserveList> rsvList) {
+//		super();
+//		this.id = id;
+//		this.pwd = pwd;
+//		this.nickname = nickname;
+//		this.rsvList = rsvList;
+//	}
 	
-	public Customer (String id , String pwd, String nickname) {
+	public Customer (String id , String pwd, String nickname, List<ReserveList> rsvList) {
 		this.id = id;
 		this.pwd = pwd;
 		this.nickname = nickname;
-		
+		this.rsvList =rsvList;
 		File file = new File("./src/loginData.txt");
 		String writeData = id+"/"+pwd+"/"+nickname+"\n";
 
