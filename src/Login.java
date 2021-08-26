@@ -49,22 +49,18 @@ public class Login {
 	
 	
 	
-	boolean loginProcess() {
+	String loginProcess() {
 
-		boolean bLogin = false;
+		String loginId = null;
 		ReadFile();
 		System.out.println("환영합니다! 아이디와 비밀번호를 입력해주세요");
 		while(tryCount > 0) { //시도 횟수 만큼 로그인 도전
-			bLogin =tryLogin(); // 로그인 시도
+			loginId =tryLogin(); // 로그인 시도
 			tryCount--; // 기회 감소
-			if(bLogin)
+			if(loginId != null)
 				break;
 		}
-		if(bLogin) {
-			return true;
-		}
-		else
-			return false;
+			return loginId;
 	}
 	
 	
@@ -87,7 +83,7 @@ public class Login {
 	
 	
 	
-	 boolean tryLogin() {
+	 String tryLogin() {
 		String id = null;
 		String pwd = null;
 		int findIndex = -1;
@@ -110,12 +106,12 @@ public class Login {
 				System.out.println("회원등록 여부 확인 후 재접속 부탁드립니다");
 			else  // 기회 남았을때
 			System.out.println("아이디가 없습니다. 다시 입력해주세요");
-			return false;
+			return null;
 		}
 		else { //아이디 찾은 경우
 			if(loginDatas.get(findIndex).pwd.equals(pwd)) { // 비밀번호도 맞는 경우
 				System.out.println(loginDatas.get(findIndex).nickname +"님 환영 합니다."); //닉네임 출력 
-				return true;
+				return id;
 			}
 			else { // 비밀번호 다름
 				if(tryCount == 1) //마지막 기회였을 경우
@@ -123,13 +119,10 @@ public class Login {
 				else // 기회 남았을때
 				System.out.println("일치하는 회원정보가 없습니다. 다시 입력해주세요");
 					
-				return false;
+				return null;
 			}
 		}
-		
-		
-		
-		
+			
 	}
 	
 	

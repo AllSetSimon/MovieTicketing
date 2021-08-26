@@ -1,3 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -23,6 +27,23 @@ public class Customer {
 		this.pwd = pwd;
 		this.nickname = nickname;
 		this.rsvList = rsvList;
+	}
+	
+	public Customer (String id , String pwd, String nickname) {
+		this.id = id;
+		this.pwd = pwd;
+		this.nickname = nickname;
+		
+		File file = new File("./src/loginData.txt");
+		String writeData = id+"/"+pwd+"/"+nickname+"\n";
+
+		try {
+		    BufferedWriter writer = new BufferedWriter(new FileWriter(file,true));
+		    writer.write(writeData);
+		    writer.close();
+		} catch (IOException e) {
+		    System.out.println("파일이 이상합니다.");
+		}
 	}
 	
 	// Getter Setter
@@ -65,11 +86,11 @@ public class Customer {
 	public void showRsvInfo() {
 		if(rsvList.size() == 0) {
 			System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-			System.out.println("    고객님의 예매 내역이 존재하지 않습니다.    ");
+			System.out.println("    "+nickname+"님의 예매 내역이 존재하지 않습니다.    ");
 			System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		} else {
 			System.out.println("==================================");
-			System.out.println("    고객님의 예매 내역은 다음과 같습니다.    ");
+			System.out.println("    "+nickname+"님의 예매 내역은 다음과 같습니다.    ");
 			System.out.println("==================================");
 			
 			for (int i = 0; i < rsvList.size(); i++) {
@@ -84,7 +105,7 @@ public class Customer {
 
 	public void showDetail(int selectNum) {
 		System.out.println("=======================================");
-		System.out.println("  고객님께서 선택하신 예매 정보는 다음과 같습니다.   ");
+		System.out.println("  "+nickname+"님께서 선택하신 예매 정보는 다음과 같습니다.   ");
 		System.out.println("=======================================");
 
 		System.out.println("1.영화 : " + rsvList.get(selectNum - 1).getTitle());
