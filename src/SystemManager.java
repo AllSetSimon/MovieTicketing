@@ -57,11 +57,11 @@ public class SystemManager {
 			e.printStackTrace();
 		}
 		
-		customerList.add(new Customer("갈아만든배","1234","강구현"));
-		customerList.add(new Customer("Simon","1234","박수빈"));
-		customerList.add(new Customer("뜬혁","1234","신승혁"));
-		customerList.add(new Customer("SkyWalker","1234","임준석"));
-		customerList.add(new Customer("svra0945","1234","장동주"));
+		customerList.add(new Customer("갈아만든배","1234","강구현",new ArrayList<ReserveList>()));
+		customerList.add(new Customer("Simon","1234","박수빈",new ArrayList<ReserveList>()));
+		customerList.add(new Customer("뜬혁","1234","신승혁",new ArrayList<ReserveList>()));
+		customerList.add(new Customer("SkyWalker","1234","임준석",new ArrayList<ReserveList>()));
+		customerList.add(new Customer("svra0945","1234","장동주",new ArrayList<ReserveList>()));
 		
 		
 		// Movie m1 = new Movie(title, genre, director, actor, plot, release, rating)
@@ -246,22 +246,25 @@ public class SystemManager {
 	public void showSeatMapAdd() {
 		for (int i = 0; i <theaterList.size(); i++) {
 			for (int j = 0; j <theaterList.get(i).getTimeList().size(); j++) {
-				seatMap.put(theaterList.get(i).getTimeList().get(j), new Seat(theaterList.get(i).getTimeList().get(j)));
+				seatMap.put(theaterList.get(i).getTimeList().get(j),   new Seat(theaterList.get(i).getTimeList().get(j)));
 			}
 		}
 	}
 	
 	//seat 출력 class
 	public void showSeat(TimeTable timetable) {
-		seatNumberList.clear();
+		//seatNumberList.clear();
+		seatNumberList =new ArrayList<Integer>();
 		seatMap.get(timetable).seatLook();
 		//선택한 좌석들 저장
+		
 		seatNumberList.addAll(seatMap.get(timetable).getSeatRangementList());
 		showFinalRsv();
 	}
 	
 	public void showFinalRsv () {
 		String time = timetable.getStartTime();
+		
 		String[] timePieces = time.split(":");	
 		int numTime = Integer.parseInt(timePieces[0]);
 		
