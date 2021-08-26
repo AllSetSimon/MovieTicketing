@@ -29,11 +29,11 @@ public class Customer {
 //		this.rsvList = rsvList;
 //	}
 	
-	public Customer (String id , String pwd, String nickname, List<ReserveList> rsvList) {
+	public Customer (String id , String pwd, String nickname) {
 		this.id = id;
 		this.pwd = pwd;
 		this.nickname = nickname;
-		this.rsvList =rsvList;
+		this.rsvList = new ArrayList<ReserveList>();
 		File file = new File("./src/loginData.txt");
 		String writeData = id+"/"+pwd+"/"+nickname+"\n";
 

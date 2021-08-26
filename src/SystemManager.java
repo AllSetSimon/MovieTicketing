@@ -33,19 +33,17 @@ public class SystemManager {
 	private int price;
 	private int selectTime;
 
-	private ArrayList<Customer> customerList;
 	private Customer currentCustomer = null;
+	private ArrayList<Customer> customerList;
 
 	
 	public SystemManager() {
-		sc = new Scanner(System.in);
+		sc = new Scanner(System.in);	
 		theaterList = new ArrayList<Theater>();
 		showingList = new ArrayList<Movie>();
 		timeList = new ArrayList<TimeTable>();
 		resultList = new ArrayList<String>();
 		seatMap = new HashMap<>();
-		customer = new Customer();
-		seatNumberList = new ArrayList<Integer>();
 		customerList = new ArrayList<Customer>();
 		
 		try {     // 파일 초기화 
@@ -57,11 +55,11 @@ public class SystemManager {
 			e.printStackTrace();
 		}
 		
-		customerList.add(new Customer("갈아만든배","1234","강구현",new ArrayList<ReserveList>()));
-		customerList.add(new Customer("Simon","1234","박수빈",new ArrayList<ReserveList>()));
-		customerList.add(new Customer("뜬혁","1234","신승혁",new ArrayList<ReserveList>()));
-		customerList.add(new Customer("SkyWalker","1234","임준석",new ArrayList<ReserveList>()));
-		customerList.add(new Customer("svra0945","1234","장동주",new ArrayList<ReserveList>()));
+		customerList.add(new Customer("갈아만든배","1234","강구현"));
+		customerList.add(new Customer("Simon","1234","박수빈"));
+		customerList.add(new Customer("뜬혁","1234","신승혁"));
+		customerList.add(new Customer("SkyWalker","1234","임준석"));
+		customerList.add(new Customer("svra0945","1234","장동주"));
 		
 		
 		// Movie m1 = new Movie(title, genre, director, actor, plot, release, rating)
@@ -111,7 +109,7 @@ public class SystemManager {
 	public void nowShowing(int inputNum) {
 		// 상영중인 영화 리스트 출력
 		System.out.println("==============================");
-		System.out.println("              현재 상영중인 영화입니다");
+		System.out.println("       현재 상영중인 영화입니다");
 		System.out.println("==============================");
 
 		for (int i = 0; i < showingList.size(); i++) {
