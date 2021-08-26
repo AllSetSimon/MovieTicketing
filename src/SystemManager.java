@@ -122,13 +122,19 @@ public class SystemManager {
 			System.out.print("세부정보를 원하시는 영화를 선택해주세요 : ");
 			selNum = Integer.parseInt(sc.nextLine());
 			showDetail(selNum);
-		} else {
+		} else if(inputNum == 2) {
 			System.out.println("==============================");
 			System.out.print("관람을 원하시는 영화를 선택해주세요:");
 			selNum = Integer.parseInt(sc.nextLine());
 			showTheater(selNum);
+		} else if(inputNum == 3) {
+			System.out.println("==============================");
+			System.out.print("리뷰 입력을 원하는 영화를 선택해주세요:");
+			selNum = Integer.parseInt(sc.nextLine());
+			//showTheater(selNum);
+		} else {			
+			System.out.println("==============================");
 		}
-		System.out.println("==============================");
 		//showTheater(selNum);
 	}
 
@@ -294,7 +300,7 @@ public class SystemManager {
 		if(check.equals("yes")) {			
 			if(currentCustomer.getPrice() < price*seatNumberList.size()) {
 				System.out.println("사용자의 소지금액이 부족하여 예매가 취소 되었습니다.");		
-				System.out.println(currentCustomer.getPrice());
+				//System.out.println(currentCustomer.getPrice());
 			} else {
 				reserveList = new ReserveList(mvName,date,theaterName,timetable.getShowRoomNum(),timetable.getStartTime(),seatNumberList);
 				//System.out.println(reserveList.getSeatNum());

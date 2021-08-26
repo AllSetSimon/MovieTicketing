@@ -157,15 +157,19 @@ public class Seat {
 			
 			if(seatRangementNumbers==0) {
 				
-				System.out.println();
-				System.out.println("예매 최종 확인 단계로 넘어갑니다.");
-				
+				if(seatRangementList.size() == 0) {
+					System.out.println("선택하신 좌석이 없습니다.");
+				} else {
+					System.out.println();
+					System.out.println("예매 최종 확인 단계로 넘어갑니다.");
+					break Loop1;
+				}
 				//ReserveList의 객체 생성
 				//ReserveList reserveList= new ReserveList();
 				
 				// 예매 확인 메소드 호출하기
 				//reserveList.method();
-				break Loop1;
+				
 			}			
 		}
 	}
@@ -193,6 +197,7 @@ public class Seat {
 
 				this.seatRangementList.add(seatRangementNumbers);
 				Collections.sort(seatRangementList);
+				
 				this.allSeatRangementList.add(seatRangementNumbers);
 				Collections.sort(allSeatRangementList);
 				break;
