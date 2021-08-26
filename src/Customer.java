@@ -15,25 +15,18 @@ public class Customer {
 
 	// 예매내역과 관련한 기능에서 사용
 	private String nickname;
-	private ArrayList<ReserveList> rsvList = new ArrayList<ReserveList>();
+	private ArrayList<ReserveList> rsvList ;
 
 	// 생성자
 	public Customer(){
+		
 	}
 
-	public Customer(String id, String pwd, String nickname, ArrayList<ReserveList> rsvList) {
-		super();
-		this.id = id;
-		this.pwd = pwd;
-		this.nickname = nickname;
-		this.rsvList = rsvList;
-	}
-	
 	public Customer (String id , String pwd, String nickname) {
 		this.id = id;
 		this.pwd = pwd;
 		this.nickname = nickname;
-		
+		this.rsvList = new ArrayList<ReserveList>();
 		File file = new File("./src/loginData.txt");
 		String writeData = id+"/"+pwd+"/"+nickname+"\n";
 
@@ -94,7 +87,7 @@ public class Customer {
 			System.out.println("==================================");
 			
 			for (int i = 0; i < rsvList.size(); i++) {
-				System.out.println((i + 1) + ". " + rsvList.get(i).getTitle() + " / " + rsvList.get(i).getRsvDate() + " / " + rsvList.get(i).getTheaterName() + " / " + rsvList.get(i).getSeatNum());
+				System.out.println((i + 1) + ". " + rsvList.get(i).getTitle() + " / " + rsvList.get(i).getRsvDate() + " / " + rsvList.get(i).getTheaterName());
 			}
 			
 			System.out.print("상세내역을 원하는 항목을 선택하세요 : ");

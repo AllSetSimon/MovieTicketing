@@ -32,7 +32,7 @@ public class MyCalendar {
 		Scanner sc = new Scanner(System.in);
 		String input = null;
 		Date date = null;
-		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd"); // Date<->String 간 처리 형식 지정
+	//	SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd"); // Date<->String 간 처리 형식 지정
 		while (true) {
 			displayCalendar();
 			System.out.println();

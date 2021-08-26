@@ -100,7 +100,13 @@ public class Seat {
 
 	// 메소드
 	public void seatLook() {
+		for(Integer item : allSeatRangementList) {
+			System.out.println("예약된 번호들 "+item+" ");
+		};
 		seatRangementList.removeAll(this.allSeatRangementList);
+		for(Integer item : allSeatRangementList) {
+			System.out.println("예약된 번호들 "+item+" ");
+		};
 		
 		Loop1: while (true) {
 			System.out.println("===============================");

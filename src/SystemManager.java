@@ -33,19 +33,17 @@ public class SystemManager {
 	private int price;
 	private int selectTime;
 
-	private ArrayList<Customer> customerList;
 	private Customer currentCustomer = null;
+	private ArrayList<Customer> customerList;
 
 	
 	public SystemManager() {
-		sc = new Scanner(System.in);
+		sc = new Scanner(System.in);	
 		theaterList = new ArrayList<Theater>();
 		showingList = new ArrayList<Movie>();
 		timeList = new ArrayList<TimeTable>();
 		resultList = new ArrayList<String>();
 		seatMap = new HashMap<>();
-		customer = new Customer();
-		seatNumberList = new ArrayList<Integer>();
 		customerList = new ArrayList<Customer>();
 		
 		try {     // 파일 초기화 
@@ -111,7 +109,7 @@ public class SystemManager {
 	public void nowShowing(int inputNum) {
 		// 상영중인 영화 리스트 출력
 		System.out.println("==============================");
-		System.out.println("              현재 상영중인 영화입니다");
+		System.out.println("       현재 상영중인 영화입니다");
 		System.out.println("==============================");
 
 		for (int i = 0; i < showingList.size(); i++) {
@@ -246,7 +244,7 @@ public class SystemManager {
 	public void showSeatMapAdd() {
 		for (int i = 0; i <theaterList.size(); i++) {
 			for (int j = 0; j <theaterList.get(i).getTimeList().size(); j++) {
-				seatMap.put(theaterList.get(i).getTimeList().get(j), new Seat(theaterList.get(i).getTimeList().get(j)));
+				seatMap.put(theaterList.get(i).getTimeList().get(j),   new Seat(theaterList.get(i).getTimeList().get(j)));
 			}
 		}
 	}
@@ -254,14 +252,17 @@ public class SystemManager {
 	//seat 출력 class
 	public void showSeat(TimeTable timetable) {
 		//seatNumberList.clear();
+		seatNumberList =new ArrayList<Integer>();
 		seatMap.get(timetable).seatLook();
 		//선택한 좌석들 저장
+		
 		seatNumberList.addAll(seatMap.get(timetable).getSeatRangementList());
 		showFinalRsv();
 	}
 	
 	public void showFinalRsv () {
 		String time = timetable.getStartTime();
+		
 		String[] timePieces = time.split(":");	
 		int numTime = Integer.parseInt(timePieces[0]);
 		
