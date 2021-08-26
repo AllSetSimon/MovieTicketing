@@ -1,3 +1,6 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -28,6 +31,8 @@ public class SystemManager {
 	private TimeTable timetable;
 	private ArrayList<Integer> seatNumberList;
 	private int price;
+	private ArrayList<Customer> customerList;
+	private Customer currentCustomer = null;
 	
 	public SystemManager() {
 		sc = new Scanner(System.in);
@@ -38,6 +43,23 @@ public class SystemManager {
 		seatMap = new HashMap<>();
 		customer = new Customer();
 		seatNumberList = new ArrayList<Integer>();
+		customerList = new ArrayList<Customer>();
+		
+		try {     // 파일 초기화 
+			BufferedWriter file;
+			file = new BufferedWriter(new FileWriter("./src/loginData.txt"));
+			file.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		customerList.add(new Customer("갈아만든배","1234","강구현"));
+		customerList.add(new Customer("Simon","1234","박수빈"));
+		customerList.add(new Customer("뜬혁","1234","신승혁"));
+		customerList.add(new Customer("SkyWalker","1234","임준석"));
+		customerList.add(new Customer("svra0945","1234","장동주"));
+		
 		
 		// Movie m1 = new Movie(title, genre, director, actor, plot, release, rating)
 		Movie sinkHole = new Movie("싱크홀", "액션", "봉찬욱", "이광수", "싱크홀줄거리", "2021-08-15", 0.0);
@@ -65,6 +87,22 @@ public class SystemManager {
 		theaterList.add(lotteJamsil);
 		theaterList.add(cgvGangnam);
 		showSeatMapAdd();
+	}
+
+	public void loginProcess() {
+		String loginId = null;
+		Login login = new Login();
+		loginId= login.loginProcess();
+		if(loginId ==null) {
+			currentCustomer = null;
+		}
+		else {
+			for(Customer customer : customerList ) {
+				if(	customer.getId().equals(loginId)) {
+					currentCustomer = customer;
+				}
+			}
+		}
 	}
 
 	public void nowShowing(int inputNum) {
@@ -220,7 +258,7 @@ public class SystemManager {
 		int numTime = Integer.parseInt(timePieces[0]);
 		
 		System.out.println("==============================");
-		System.out.println("고객님의 최종 예매 정보는 다음과 같습니다");
+		System.out.println(currentCustomer.getNickname()+"님의 최종 예매 정보는 다음과 같습니다");
 		System.out.println("1.영화 :" + mvName);
 		System.out.println("2.날짜 :" + date);
 		System.out.println("3.상영극장 :" + theaterName);
@@ -243,7 +281,7 @@ public class SystemManager {
 		
 		if(check.equals("yes")) {
 			reserveList = new ReserveList(mvName,date,theaterName,timetable.getShowRoomNum(),timetable.getStartTime(),seatNumberList);
-			customer.addRsvInfo(reserveList);
+			currentCustomer.addRsvInfo(reserveList);
 			System.out.println("예매가 완료 되었습니다.");
 			//return reserveList;
 		}else {
@@ -251,8 +289,31 @@ public class SystemManager {
 			//return null;  
 		}
 	}	
+	public boolean reLogin() {
+		String answer = null;
+		currentCustomer = null;
+		System.out.println("로그아웃 되었습니다.");
+		System.out.println("다시 로그인 하시겠습니까? (‘yes’ , ‘no’을 입력하세요)");
+		answer = sc.nextLine();
+		if(answer.equals("yes")) {
+			loginProcess();
+			return true;
+		}else
+			return false;
+			
+	}
 	
 	public void checkRsv() {
-		customer.showRsvInfo();
+		currentCustomer.showRsvInfo();
 	}
+	
+	public Customer getCurrentCustomer() {
+		return currentCustomer;
+	}
+
+	public void setCurrentCustomer(Customer currentCustomer) {
+		this.currentCustomer = currentCustomer;
+	}
+	
+
 }
