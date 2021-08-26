@@ -64,7 +64,7 @@ public class SystemManager {
 		
 		
 		// Movie m1 = new Movie(title, genre, director, actor, plot, release, rating)
-		Movie sinkHole = new Movie("싱크홀", "액션", "봉찬욱", "이광수", "싱크홀줄거리", "2021-08-15", 0.0);
+		Movie sinkHole = new Movie("싱크홀", "드라마", "김지훈", "차승원, 김성균, 이광수, 김혜준, 남다름 등", "서울 입성과 함께 내 집 마련의 꿈을 이룬 가장 ‘동원(김성균)’ \n이사 첫날부터 프로 참견러 ‘만수’(차승원)와 사사건건 부딪힌다. \n‘동원’은 자가취득을 기념하며 직장 동료들을 집들이에 초대하지만 행복한 단꿈도 잠시, \n순식간에 빌라 전체가 땅 속으로 떨어지고 만다. \n마주치기만 하면 투닥거리는 빌라 주민 ‘만수’와 ‘동원’ ‘동원’의 집들이에 왔던 ‘김대리’(이광수)와 인턴사원 ‘은주’(김혜준)까지! \n지하 500m 싱크홀 속으로 떨어진 이들은 과연 무사히 빠져나갈 수 있을까? \n“한 500m 정도는 떨어진 것 같아” “우리… 나갈 수 있을까요?”", "2021-08-11", 0.0);
 		Movie bossBB = new Movie("보스베이비2", "애니메이션", "세스로건", "보스", "보스베이비줄거리", "2021-08-07", 0.0);
 		Movie mogaDS = new Movie("모가디슈", "액션", "박찬봉", "조인성", "모가디슈줄거리", "2021-08-12", 0.0);
 		
@@ -117,26 +117,58 @@ public class SystemManager {
 			System.out.println("        " + (i + 1) + ". " + showingList.get(i).getTitle());
 		}
 		
+		System.out.println("==============================");
 		if(inputNum == 1) {
-			System.out.println("==============================");
 			System.out.print("세부정보를 원하시는 영화를 선택해주세요 : ");
 			selNum = Integer.parseInt(sc.nextLine());
 			showDetail(selNum);
 		} else if(inputNum == 2) {
-			System.out.println("==============================");
 			System.out.print("관람을 원하시는 영화를 선택해주세요:");
 			selNum = Integer.parseInt(sc.nextLine());
 			showTheater(selNum);
 		} else if(inputNum == 3) {
-			System.out.println("==============================");
-			System.out.print("리뷰 입력을 원하는 영화를 선택해주세요:");
+			System.out.print("평점 입력을 원하는 영화를 선택해주세요:");
 			selNum = Integer.parseInt(sc.nextLine());
-			//showTheater(selNum);
+			inputRating(selNum);
 		} else {			
 			System.out.println("==============================");
 		}
 		//showTheater(selNum);
 	}
+	
+	public void inputRating(int selectNum) {
+		
+			System.out.println("====================");
+			System.out.println("선택한 영화 : " + showingList.get(selectNum-1).getTitle());
+			System.out.println("해당 영화의 현재 평점 : " + String.format("%.2f", showingList.get(selectNum-1).getRating()) + "점");
+			System.out.println("====================");
+			
+			double inputScore = 0.0;	
+			
+			while(true) {
+				System.out.print("해당 영화의 평점을 입력해주세요 : ");			
+				try {
+					inputScore = Double.parseDouble(sc.nextLine());
+					if(!(inputScore >= 0.0 && inputScore <= 10.0)) {
+						System.out.println("0부터 10점 이내의 평점 입력만 가능합니다.");
+						continue;
+					} else {
+						showingList.get(selectNum-1).setRating(inputScore);
+						System.out.print("입력이 완료되었습니다. 다른 영화의 평점도 입력하시겠습니까? (Y/N) : ");
+						String inputRetry = sc.nextLine();
+						if(inputRetry.equalsIgnoreCase("Y")) {
+							nowShowing(3);
+						} else {
+							System.out.println("메인으로 돌아갑니다.");
+						}
+					}
+				}catch (Exception e) {
+					System.out.println("잘못된 형식입니다.");					
+					continue;
+				}
+				break;
+			}		
+	} 
 
 	public void showDetail(int selectNum) {
 		// 영화 상세정보 출력

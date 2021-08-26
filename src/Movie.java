@@ -8,6 +8,7 @@ public class Movie {
 	private String release; //∞≥∫¿¿œ
 	private double rating; //∞¸∞¥∆Ú¡°
 	
+	private int count;
 	
 	public Movie() {}
 	
@@ -58,9 +59,18 @@ public class Movie {
 		this.release = release;
 	}
 	public double getRating() {
-		return rating;
+		if(rating == 0.0) {
+			return rating;
+		} else {
+			return rating / count;
+		}
 	}
 	public void setRating(double rating) {
-		this.rating = rating;
+		count += 1;
+		if(count == 1) {			
+			this.rating = rating ;		
+		} else {
+			this.rating += rating;
+		}
 	}
 }

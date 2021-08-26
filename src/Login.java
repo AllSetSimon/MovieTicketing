@@ -54,6 +54,7 @@ public class Login {
 		String loginId = null;
 		ReadFile();
 		System.out.println("환영합니다! 아이디와 비밀번호를 입력해주세요");
+		System.out.println("------------------------------");
 		while(tryCount > 0) { //시도 횟수 만큼 로그인 도전
 			loginId =tryLogin(); // 로그인 시도
 			tryCount--; // 기회 감소
@@ -89,9 +90,9 @@ public class Login {
 		int findIndex = -1;
 		Scanner scan  = new Scanner(System.in);
 
-		System.out.print("아이디:");
+		System.out.print("아이디 : ");
 		id = scan.nextLine();
-		System.out.print("비밀번호:");
+		System.out.print("비밀번호 : ");
 		pwd =scan.nextLine();
 		
 		for(LoginData logindata: loginDatas) {  //입력된 아이디와 일치하는 데이터 찾기
