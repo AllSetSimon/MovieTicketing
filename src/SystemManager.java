@@ -306,7 +306,7 @@ public class SystemManager {
 				System.out.println("예매가 완료 되었습니다.");				
 				//return reserveList;
 				currentCustomer.setPrice(currentCustomer.getPrice()-(price*seatNumberList.size()));
-				System.out.println("고객의 잔액은 "+currentCustomer.getPrice()+"원 입니다");
+				System.out.println("고객님의 잔액은 "+currentCustomer.getPrice()+"원 입니다");
 			}
 		}else {
 			System.out.println("예매가 취소 되었습니다.");	
