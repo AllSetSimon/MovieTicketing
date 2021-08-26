@@ -15,13 +15,13 @@ public class Customer {
 
 	// 예매내역과 관련한 기능에서 사용
 	private String nickname;
-	private List<ReserveList> rsvList = new ArrayList<ReserveList>();
+	private ArrayList<ReserveList> rsvList = new ArrayList<ReserveList>();
 
 	// 생성자
-	Customer() {
+	public Customer(){
 	}
 
-	public Customer(String id, String pwd, String nickname, List<ReserveList> rsvList) {
+	public Customer(String id, String pwd, String nickname, ArrayList<ReserveList> rsvList) {
 		super();
 		this.id = id;
 		this.pwd = pwd;
@@ -71,11 +71,11 @@ public class Customer {
 		this.nickname = nickname;
 	}
 
-	public List<ReserveList> getRsvList() {
+	public ArrayList<ReserveList> getRsvList() {
 		return rsvList;
 	}
 
-	public void setRsvList(List<ReserveList> rsvList) {
+	public void setRsvList(ArrayList<ReserveList> rsvList) {
 		this.rsvList = rsvList;
 	}
 
@@ -94,7 +94,7 @@ public class Customer {
 			System.out.println("==================================");
 			
 			for (int i = 0; i < rsvList.size(); i++) {
-				System.out.println((i + 1) + ". " + rsvList.get(i).getTitle() + " / " + rsvList.get(i).getRsvDate() + " / " + rsvList.get(i).getTheaterName());
+				System.out.println((i + 1) + ". " + rsvList.get(i).getTitle() + " / " + rsvList.get(i).getRsvDate() + " / " + rsvList.get(i).getTheaterName() + " / " + rsvList.get(i).getSeatNum());
 			}
 			
 			System.out.print("상세내역을 원하는 항목을 선택하세요 : ");

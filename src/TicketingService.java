@@ -11,8 +11,8 @@ public class TicketingService {
 		
 		if(sm.getCurrentCustomer() == null) {
 			return ;
-			
 		}
+		
 		while (bFlagWhile) {
 			System.out.println("==============================");
 			System.out.println("        1. 현재 상영중인 영화"); 

@@ -253,7 +253,7 @@ public class SystemManager {
 	
 	//seat 출력 class
 	public void showSeat(TimeTable timetable) {
-		seatNumberList.clear();
+		//seatNumberList.clear();
 		seatMap.get(timetable).seatLook();
 		//선택한 좌석들 저장
 		seatNumberList.addAll(seatMap.get(timetable).getSeatRangementList());
@@ -289,7 +289,12 @@ public class SystemManager {
 		
 		if(check.equals("yes")) {
 			reserveList = new ReserveList(mvName,date,theaterName,timetable.getShowRoomNum(),timetable.getStartTime(),seatNumberList);
+			//System.out.println(reserveList.getSeatNum());
 			currentCustomer.addRsvInfo(reserveList);
+			ArrayList<ReserveList> resultTest = currentCustomer.getRsvList();
+			for (int i = 0; i < resultTest.size(); i++) {
+				System.out.println(resultTest.get(i).getSeatNum());
+			}
 			System.out.println("예매가 완료 되었습니다.");
 			//return reserveList;
 		}else {

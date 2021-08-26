@@ -8,7 +8,7 @@ public class ReserveList {
 	private String theaterName;
 	private int showRoomNum;
 	private String startTime;
-	ArrayList<Integer> seatNum; 
+	private ArrayList<Integer> seatNum; 
 	
 	//»ý¼ºÀÚ
 	ReserveList(){}
