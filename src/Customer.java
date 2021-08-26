@@ -12,9 +12,10 @@ public class Customer {
 	// 입출력 로그인
 	private String id;
 	private String pwd;
-
+	
 	// 예매내역과 관련한 기능에서 사용
 	private String nickname;
+	private int price;
 	private ArrayList<ReserveList> rsvList ;
 
 	// 생성자
@@ -22,10 +23,13 @@ public class Customer {
 		
 	}
 
-	public Customer (String id , String pwd, String nickname) {
+	
+
+	public Customer (String id , String pwd, String nickname,int price) {
 		this.id = id;
 		this.pwd = pwd;
 		this.nickname = nickname;
+		this.price = price;
 		this.rsvList = new ArrayList<ReserveList>();
 		File file = new File("./src/loginData.txt");
 		String writeData = id+"/"+pwd+"/"+nickname+"\n";
@@ -71,7 +75,14 @@ public class Customer {
 	public void setRsvList(ArrayList<ReserveList> rsvList) {
 		this.rsvList = rsvList;
 	}
+	
+	public int getPrice() {
+		return price;
+	}
 
+	public void setPrice(int price) {
+		this.price = price;
+	}
 	public void addRsvInfo(ReserveList rsv) {
 		rsvList.add(rsv);
 	}

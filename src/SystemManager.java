@@ -32,7 +32,8 @@ public class SystemManager {
 	private ArrayList<Integer> seatNumberList;
 	private int price;
 	private int selectTime;
-
+	private String loginId;
+	
 	private Customer currentCustomer = null;
 	private ArrayList<Customer> customerList;
 
@@ -55,11 +56,11 @@ public class SystemManager {
 			e.printStackTrace();
 		}
 		
-		customerList.add(new Customer("갈아만든배","1234","강구현"));
-		customerList.add(new Customer("Simon","1234","박수빈"));
-		customerList.add(new Customer("뜬혁","1234","신승혁"));
-		customerList.add(new Customer("SkyWalker","1234","임준석"));
-		customerList.add(new Customer("svra0945","1234","장동주"));
+		customerList.add(new Customer("갈아만든배","1234","강구현",95000));
+		customerList.add(new Customer("Simon","1234","박수빈",55000));
+		customerList.add(new Customer("뜬혁","1234","신승혁",43000));
+		customerList.add(new Customer("SkyWalker","1234","임준석",57000));
+		customerList.add(new Customer("svra0945","1234","장동주",50000));
 		
 		
 		// Movie m1 = new Movie(title, genre, director, actor, plot, release, rating)
@@ -91,7 +92,7 @@ public class SystemManager {
 	}
 
 	public void loginProcess() {
-		String loginId = null;
+		loginId = null;
 		Login login = new Login();
 		loginId= login.loginProcess();
 		if(loginId ==null) {
@@ -288,16 +289,25 @@ public class SystemManager {
 		String check = sc.nextLine();
 		System.out.println("==============================");
 		
-		if(check.equals("yes")) {
-			reserveList = new ReserveList(mvName,date,theaterName,timetable.getShowRoomNum(),timetable.getStartTime(),seatNumberList);
-			//System.out.println(reserveList.getSeatNum());
-			currentCustomer.addRsvInfo(reserveList);
-			ArrayList<ReserveList> resultTest = currentCustomer.getRsvList();
-			for (int i = 0; i < resultTest.size(); i++) {
-				System.out.println(resultTest.get(i).getSeatNum());
+	
+		
+		if(check.equals("yes")) {			
+			if(currentCustomer.getPrice() < price*seatNumberList.size()) {
+				System.out.println("사용자의 소지금액이 부족하여 예매가 취소 되었습니다.");		
+				System.out.println(currentCustomer.getPrice());
+			} else {
+				reserveList = new ReserveList(mvName,date,theaterName,timetable.getShowRoomNum(),timetable.getStartTime(),seatNumberList);
+				//System.out.println(reserveList.getSeatNum());
+				currentCustomer.addRsvInfo(reserveList);
+				ArrayList<ReserveList> resultTest = currentCustomer.getRsvList();
+				for (int i = 0; i < resultTest.size(); i++) {
+					System.out.println(resultTest.get(i).getSeatNum());
+				}
+				System.out.println("예매가 완료 되었습니다.");				
+				//return reserveList;
+				currentCustomer.setPrice(currentCustomer.getPrice()-(price*seatNumberList.size()));
+				System.out.println("고객의 잔액은 "+currentCustomer.getPrice()+"원 입니다");
 			}
-			System.out.println("예매가 완료 되었습니다.");
-			//return reserveList;
 		}else {
 			System.out.println("예매가 취소 되었습니다.");	
 			//return null;  
