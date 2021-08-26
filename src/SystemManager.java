@@ -28,6 +28,7 @@ public class SystemManager {
 	private TimeTable timetable;
 	private ArrayList<Integer> seatNumberList;
 	private int price;
+	private int selectTime;
 	
 	public SystemManager() {
 		sc = new Scanner(System.in);
@@ -170,29 +171,34 @@ public class SystemManager {
 			//nowShowing(2);
 			//selectCalData();
 		} else {
-			System.out.println("==============================");
-			System.out.println("해당 극장의 상영시간표는 다음과 같습니다.");
-			System.out.println("==============================");
-			Collections.sort(timeList,new TimeTableComparator());
-			for (int i = 0; i < timeList.size(); i++) {
-				if(i == 0) {
-					System.out.print("    [" + timeList.get(i).getShowRoomNum() + "관] " +(i+1) + ". " + timeList.get(i).getStartTime()+ " [" + timeList.get(i).getSeatCount() + "석]");
-				} else {
-					if(timeList.get(i-1).getShowRoomNum() == timeList.get(i).getShowRoomNum()) {
-						System.out.print(" " + (i+1) + ". " + timeList.get(i).getStartTime() + " [" + timeList.get(i).getSeatCount() + "석]");				
+			do {
+				System.out.println("==============================");
+				System.out.println("해당 극장의 상영시간표는 다음과 같습니다.");
+				System.out.println("==============================");
+				Collections.sort(timeList,new TimeTableComparator());
+				for (int i = 0; i < timeList.size(); i++) {
+					if(i == 0) {
+						System.out.print("    [" + timeList.get(i).getShowRoomNum() + "관] " +(i+1) + ". " + timeList.get(i).getStartTime()+ " [" + timeList.get(i).getSeatCount() + "석]");
 					} else {
-						System.out.println();
-						System.out.print("    [" + timeList.get(i).getShowRoomNum() + "관] " +(i+1) + ". " + timeList.get(i).getStartTime() + " [" + timeList.get(i).getSeatCount() + "석]");
+						if(timeList.get(i-1).getShowRoomNum() == timeList.get(i).getShowRoomNum()) {
+							System.out.print(" " + (i+1) + ". " + timeList.get(i).getStartTime() + " [" + timeList.get(i).getSeatCount() + "석]");				
+						} else {
+							System.out.println();
+							System.out.print("    [" + timeList.get(i).getShowRoomNum() + "관] " +(i+1) + ". " + timeList.get(i).getStartTime() + " [" + timeList.get(i).getSeatCount() + "석]");
+						}
 					}
+				}				
+				System.out.println();
+				System.out.println("==============================");
+				System.out.print("관람을 원하는 시간표를 선택해주세요 : ");
+				selectTime = Integer.parseInt(sc.nextLine());
+				System.out.println("==============================");
+				if (selectTime > timeList.size()) {
+					System.out.println("다시 입력해주세요.");
 				}
-			}				
-			System.out.println();
-			System.out.println("==============================");
-			System.out.print("관람을 원하는 시간표를 선택해주세요 : ");
-			int selectTime = Integer.parseInt(sc.nextLine());
-			System.out.println("==============================");
-			timetable = timeList.get(selectTime-1);
-			showSeat(timetable);
+			}while(selectTime > timeList.size());
+				timetable = timeList.get(selectTime-1);
+				showSeat(timetable);
 		}	
 	}
 	
