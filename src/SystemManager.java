@@ -154,6 +154,7 @@ public class SystemManager {
 							System.out.println("올바른 번호를 입력해주세요");
 							resultCode = 1;
 						} else if (selNum == 0) {
+							resultCode = 0;
 							break;
 						}
 						break;
@@ -177,7 +178,10 @@ public class SystemManager {
 					} else if (selNum > showingList.size()) {
 						System.out.println("올바른 번호를 입력해주세요");
 						resultCode = 1;
-					} 
+					} else if(selNum == 0) {
+						resultCode = 0;
+						break;
+					}
 					break;
 				}
 			} else {
