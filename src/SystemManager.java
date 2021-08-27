@@ -84,8 +84,7 @@ public class SystemManager {
 		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-08-08", "14:00", 3, 40));
 		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-08-10", "15:00", 2, 20));
 		cgvGangnam.setupTimeTable(sinkHole, new TimeTable("2021-08-18", "16:00", 1, 15));
-		// cgvGangnam.setupTimeTable(mogaDS, new TimeTable("2021-08-16", "17:00", 2,
-		// 30));
+		//cgvGangnam.setupTimeTable(mogaDS, new TimeTable("2021-08-16", "17:00", 2,30));
 		cgvGangnam.setupTimeTable(bossBB, new TimeTable("2021-08-13", "18:00", 3, 60));
 
 		theaterList.add(lotteJamsil);
