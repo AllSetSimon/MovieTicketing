@@ -125,32 +125,35 @@ public class SystemManager {
 			System.out.println("==============================");
 
 			if (inputNum == 1) {
+				System.out.print("세부정보를 원하시는 영화를 선택해주세요(이전화면은 0번 입력):");
+
 				try {
-					System.out.print("세부정보를 원하시는 영화를 선택해주세요(이전화면은 0번 입력):");
 					selNum = Integer.parseInt(sc.nextLine());
-					if (selNum != 0 && selNum <= showingList.size()) {
-						resultCode = showDetail(selNum);
-						System.out.println("========================================================");
-					} else if (selNum > showingList.size()) {
-						System.out.println("올바른 번호를 입력해주세요:");
-						resultCode = 1;
-					} else if (selNum == 0) {
-						break;
-					}
 				} catch (Exception e) {
 					System.out.println("형식에 알맞지 않습니다");
+					continue;
+				}
+
+				if (selNum != 0 && selNum <= showingList.size()) {
+					resultCode = showDetail(selNum);
+					System.out.println("========================================================");
+				} else if (selNum > showingList.size()) {
+					System.out.println("올바른 번호를 입력해주세요:");
+					resultCode = 1;
+				} else if (selNum == 0) {
+					break;
 				}
 			} else if (inputNum == 2) {
 				while (true) {
 					System.out.print("관람을 원하시는 영화를 선택해주세요(이전화면은 0번 입력):");
-					
+
 					try {
 						selNum = Integer.parseInt(sc.nextLine());
 					} catch (Exception e) {
 						System.out.println("입력값에 오류가 있습니다.");
 						continue;
 					}
-					
+
 					if (selNum != 0 && selNum <= showingList.size()) {
 						showTheater(selNum);
 						resultCode = 0;
@@ -167,14 +170,14 @@ public class SystemManager {
 			} else if (inputNum == 3) {
 				while (true) {
 					System.out.print("평점 입력을 원하는 영화를 선택해주세요 (메인메뉴로 가려면 0):");
-					
+
 					try {
 						selNum = Integer.parseInt(sc.nextLine());
 					} catch (NumberFormatException e) {
 						System.out.println("입력 값에 오류가 있습니다.");
 						continue;
 					}
-					
+
 					if (selNum != 0 && selNum <= showingList.size()) {
 						inputRating(selNum);
 						resultCode = 0;
@@ -266,16 +269,16 @@ public class SystemManager {
 			System.out.print("관람을 원하는 극장을 선택해주세요:");
 			try {
 				selNum = Integer.parseInt(sc.nextLine());
-				System.out.println("==============================");
-				if (selNum == 0 || selNum > resultList.size()) {
-					System.out.println("다시 입력해주세요!");
-				} else {
-					showTimeList(selNum);
-					break;
-				}
 			} catch (Exception e) {
 				System.out.println("==============================");
 				System.out.println("올바른 형식으로 입력해주세요");
+			}
+			System.out.println("==============================");
+			if (selNum == 0 || selNum > resultList.size()) {
+				System.out.println("다시 입력해주세요!");
+			} else {
+				showTimeList(selNum);
+				break;
 			}
 		}
 	}
@@ -351,33 +354,34 @@ public class SystemManager {
 				break;
 			}
 		}
-		do {
-			System.out.println("==============================");
-			System.out.println("해당 극장의 상영시간표는 다음과 같습니다.");
-			System.out.println("==============================");
-			Collections.sort(timeList, new TimeTableTimeComparator());
-			Collections.sort(timeList, new TimeTableComparator());
-			for (int i = 0; i < timeList.size(); i++) {
-				if (i == 0) {
+
+		System.out.println("==============================");
+		System.out.println("해당 극장의 상영시간표는 다음과 같습니다.");
+		System.out.println("==============================");
+		Collections.sort(timeList, new TimeTableTimeComparator());
+		Collections.sort(timeList, new TimeTableComparator());
+		for (int i = 0; i < timeList.size(); i++) {
+			if (i == 0) {
+				System.out.print("    [" + timeList.get(i).getShowRoomNum() + "관] " + (i + 1) + ". "
+						+ timeList.get(i).getStartTime() + "[" + timeList.get(i).getRemainCount() + "/"
+						+ timeList.get(i).getSeatCount() + "석]");
+			} else {
+				if (timeList.get(i - 1).getShowRoomNum() == timeList.get(i).getShowRoomNum()) {
+					System.out.print(" " + (i + 1) + ". " + timeList.get(i).getStartTime() + "["
+							+ timeList.get(i).getRemainCount() + "/" + timeList.get(i).getSeatCount() + "석]");
+				} else {
+					System.out.println();
 					System.out.print("    [" + timeList.get(i).getShowRoomNum() + "관] " + (i + 1) + ". "
 							+ timeList.get(i).getStartTime() + "[" + timeList.get(i).getRemainCount() + "/"
 							+ timeList.get(i).getSeatCount() + "석]");
-				} else {
-					if (timeList.get(i - 1).getShowRoomNum() == timeList.get(i).getShowRoomNum()) {
-						System.out.print(" " + (i + 1) + ". " + timeList.get(i).getStartTime() + "["
-								+ timeList.get(i).getRemainCount() + "/" + timeList.get(i).getSeatCount() + "석]");
-					} else {
-						System.out.println();
-						System.out.print("    [" + timeList.get(i).getShowRoomNum() + "관] " + (i + 1) + ". "
-								+ timeList.get(i).getStartTime() + "[" + timeList.get(i).getRemainCount() + "/"
-								+ timeList.get(i).getSeatCount() + "석]");
-					}
 				}
 			}
-			System.out.println();
+		}
+		System.out.println();
+
+		while (true) {
 			System.out.println("==============================");
 			System.out.print("관람을 원하는 시간표를 선택해주세요 : ");
-
 			try {
 				selectTime = Integer.parseInt(sc.nextLine());
 			} catch (NumberFormatException e) {
@@ -385,13 +389,15 @@ public class SystemManager {
 				continue;
 			}
 
-			System.out.println("==============================");
 			if (selectTime > timeList.size()) {
 				System.out.println("다시 입력해주세요.");
+				continue;
+			} else {
+				timetable = timeList.get(selectTime - 1);
+				showSeat(timetable);
 			}
-		} while (selectTime > timeList.size());
-		timetable = timeList.get(selectTime - 1);
-		showSeat(timetable);
+		}
+
 	}
 
 	// seatMap put class
