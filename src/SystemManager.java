@@ -230,23 +230,22 @@ public class SystemManager {
 				System.out.println((i + 1) + "." + resultList.get(i));
 			}
 		}
-
-		while (true) {
+		
+		while(true) {
 			System.out.println("==============================");
-			System.out.print("관람을 원하시는 극장을 선택해주세요(이전화면은 0번 입력):");
+			System.out.print("관람을 원하는 극장을 선택해주세요:");
 			try {
 				selNum = Integer.parseInt(sc.nextLine());
-				if (selNum <= resultList.size() && selNum != 0) {
+				System.out.println("==============================");
+				if(selNum == 0 || selNum > resultList.size()) {
+					System.out.println("다시 입력해주세요!");
+				} else {					
 					selectCalData();
-				} else if (selNum == 0) {
-					nowShowing(2);
 					break;
-				} else if (selNum > resultList.size()) {
-					System.out.print("올바른 번호를 입력해주세요:");
 				}
-
-			} catch (Exception e) {
-				System.out.print("올바른 번호를 입력해주세요:");
+			}catch (Exception e) {
+				System.out.println("==============================");
+				System.out.println("올바른 형식으로 입력해주세요");
 			}
 		}
 	}
@@ -375,13 +374,13 @@ public class SystemManager {
 				// System.out.println(currentCustomer.getPrice());
 			} else {
 				reserveList = new ReserveList(mvName, date, theaterName, timetable.getShowRoomNum(),
-						timetable.getStartTime(), seatNumberList);
+						timetable.getStartTime(), seatNumberList, price * seatNumberList.size());
 				// System.out.println(reserveList.getSeatNum());
 				currentCustomer.addRsvInfo(reserveList);
 				ArrayList<ReserveList> resultTest = currentCustomer.getRsvList();
-				for (int i = 0; i < resultTest.size(); i++) {
-					System.out.println(resultTest.get(i).getSeatNum());
-				}
+//				for (int i = 0; i < resultTest.size(); i++) {
+//					System.out.println(resultTest.get(i).getSeatNum());
+//				}
 				System.out.println("예매가 완료 되었습니다.");
 				// return reserveList;
 				currentCustomer.setPrice(currentCustomer.getPrice() - (price * seatNumberList.size()));
