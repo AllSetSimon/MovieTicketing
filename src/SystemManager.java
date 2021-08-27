@@ -325,15 +325,14 @@ public class SystemManager {
 			for (int i = 0; i < timeList.size(); i++) {
 				if (i == 0) {
 					System.out.print("    [" + timeList.get(i).getShowRoomNum() + "관] " + (i + 1) + ". "
-							+ timeList.get(i).getStartTime() + " [" + timeList.get(i).getSeatCount() + "석]");
+							+ timeList.get(i).getStartTime() + "[" + timeList.get(i).getRemainCount() + "/" +  timeList.get(i).getSeatCount() + "석]");
 				} else {
 					if (timeList.get(i - 1).getShowRoomNum() == timeList.get(i).getShowRoomNum()) {
-						System.out.print(" " + (i + 1) + ". " + timeList.get(i).getStartTime() + " ["
-								+ timeList.get(i).getSeatCount() + "석]");
+						System.out.print(" " + (i + 1) + ". " + timeList.get(i).getStartTime() + "[" + timeList.get(i).getRemainCount() + "/" +  timeList.get(i).getSeatCount() + "석]");
 					} else {
 						System.out.println();
 						System.out.print("    [" + timeList.get(i).getShowRoomNum() + "관] " + (i + 1) + ". "
-								+ timeList.get(i).getStartTime() + " [" + timeList.get(i).getSeatCount() + "석]");
+								+ timeList.get(i).getStartTime() + "[" + timeList.get(i).getRemainCount() + "/" +  timeList.get(i).getSeatCount() + "석]");
 					}
 				}
 			}
@@ -366,6 +365,7 @@ public class SystemManager {
 		seatMap.get(timetable).seatLook();
 		// 선택한 좌석들 저장
 		seatNumberList.addAll(seatMap.get(timetable).getSeatRangementList());
+		timetable.setRemainMinus(seatMap.get(timetable).getSeatRangementList().size());
 		if (seatNumberList.size() >= 1) {
 			showFinalRsv();
 		}
@@ -421,6 +421,8 @@ public class SystemManager {
 	public void seatListRemove(TimeTable timetable) {
 		int firstIndex = 0;
 		int secondIndex = 0;
+		
+		timetable.setRemainPlus(seatMap.get(timetable).getSeatRangementList().size());
 
 		for (Integer integer : seatNumberList) {
 			if (integer % seatMap.get(timetable).getSeatLineNumber() == 0) {
@@ -488,6 +490,8 @@ public class SystemManager {
 	public void seatListRemove(ReserveList reserveList) {
 		Seat seat = seatMap.get(reserveList.getTimeTable());
 		int seatNum = seat.getSeatLineNumber();
+		
+		reserveList.getTimeTable().setRemainPlus(reserveList.getSeatNum().size());
 
 		for (int i = 0; i < reserveList.getSeatNum().size(); i++) {
 			int seatNumber = reserveList.getSeatNum().get(i);
