@@ -20,16 +20,16 @@ public class SystemManager {
 	private MyCalendar myCalendar; // 달력 관련 객체
 
 	private ArrayList<Customer> customerList; // 고객 리스트
-	private ArrayList<Theater> theaterList; // 극장 리스트 
+	private ArrayList<Theater> theaterList; // 극장 리스트
 	private ArrayList<Movie> showingList; // 상영영화 리스트
 	private ArrayList<TimeTable> timeList; // 시간표 리스트
 	private ArrayList<String> resultList; // 검색결과 리스트
 	private Map<TimeTable, Seat> seatMap; // 좌석 맵
 
-	private String loginId;//로그인ID
+	private String loginId;// 로그인ID
 	private int selNum; // 입력받는 수
 	private int selectTime; // 시간 선택 입력받는 수
-	
+
 	private String mvName; // 영화이름
 	private Date date; // 상영일자
 	private String theaterName; // 극장 이름
@@ -37,8 +37,7 @@ public class SystemManager {
 	private ArrayList<Integer> seatNumberList; // 좌석선택리스트
 	private int price; // 가격
 
-	
-	//디폴트
+	// 디폴트
 	public SystemManager() {
 		sc = new Scanner(System.in);
 		theaterList = new ArrayList<Theater>();
@@ -88,7 +87,7 @@ public class SystemManager {
 		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-09-02", "15:00", 2, 20));
 		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-09-05", "15:00", 2, 20));
 		cgvGangnam.setupTimeTable(sinkHole, new TimeTable("2021-08-18", "16:00", 1, 15));
-		cgvGangnam.setupTimeTable(mogaDS, new TimeTable("2021-08-16", "17:00", 2,30));
+		cgvGangnam.setupTimeTable(mogaDS, new TimeTable("2021-08-16", "17:00", 2, 30));
 		cgvGangnam.setupTimeTable(bossBB, new TimeTable("2021-08-13", "18:00", 3, 60));
 
 		theaterList.add(lotteJamsil);
@@ -220,7 +219,7 @@ public class SystemManager {
 			resultList.add(theaterList.get(i).getMovieMap().get(mvName));
 		}
 		System.out.println("==============================");
-		
+
 		for (int i = 0; i < resultList.size(); i++) {
 			if (resultList.get(i) != null) {
 				System.out.println((i + 1) + "." + resultList.get(i));
@@ -235,7 +234,8 @@ public class SystemManager {
 				if (selNum == 0 || selNum > resultList.size()) {
 					System.out.println("다시 입력해주세요!");
 				} else {
-					selectCalData();
+					showTimeList(selNum);
+					// selectCalData();
 					break;
 				}
 			} catch (Exception e) {
@@ -249,19 +249,23 @@ public class SystemManager {
 		myCalendar = new MyCalendar();
 		LocalDateTime now = LocalDateTime.now();
 		ArrayList<Integer> availableDayList = new ArrayList<Integer>(); // 이용가능한 날짜
-		theaterName = resultList.get(selNum - 1);
+		//theaterName = resultList.get(selNum - 1);
 		int settingYear = now.getYear();
 		int settingMonth = now.getMonthValue();
-		char[] inputBox = new char[] {' ',' '}; // '<' '>' 입력 체크 떄문제 추가...
+		char[] inputBox = new char[] { ' ', ' ' }; // '<' '>' 입력 체크 떄문제 추가...
 		while (true) {
 			availableDayList.clear(); // 이전 달 냐용 클리어
-			for (Theater theater : theaterList) {  //극장 전부 탐색
+			for (Theater theater : theaterList) { // 극장 전부 탐색
 				if (theater.getTheaterName().equals(theaterName)) { // 극장 전부 탐색
 					for (Map.Entry<TimeTable, String> entry : theater.getTimeMap().entrySet()) { // 극장 내 타임 테이블 전부 탐색
 						if (mvName.equals(entry.getValue())) {
-							if (settingYear == Integer.parseInt(entry.getKey().getDate().toString().substring(0, 4))) { // 년도 비교
-								if (settingMonth == Integer.parseInt(entry.getKey().getDate().toString().substring(5, 7))) { // 월 비교
-									availableDayList.add(Integer.parseInt(entry.getKey().getDate().toString().substring(8, 10))); // 날짜 입력
+							if (settingYear == Integer.parseInt(entry.getKey().getDate().toString().substring(0, 4))) { // 년도
+																														// 비교
+								if (settingMonth == Integer
+										.parseInt(entry.getKey().getDate().toString().substring(5, 7))) { // 월 비교
+									availableDayList.add(
+											Integer.parseInt(entry.getKey().getDate().toString().substring(8, 10))); // 날짜
+																														// 입력
 								}
 							}
 						}
@@ -281,66 +285,70 @@ public class SystemManager {
 			}
 		}
 		System.out.println("선택된 날짜 확인 : " + date);
-		showTimeList(selNum);
+		//showTimeList(selNum);
 	}
 
 	public void showTimeList(int selectNum) {
 		theaterName = resultList.get(selectNum - 1);
 		resultList.clear();
 		timeList.clear();
-
-		int compare = 0;
-		for (int i = 0; i < theaterList.size(); i++) {
-			Set<Entry<TimeTable, String>> mapEntry = theaterList.get(i).getTimeMap().entrySet();
-			for (Entry<TimeTable, String> entry : mapEntry) {
-				compare = date.compareTo(entry.getKey().getDate());
-				// System.out.println(compare);
-				if (theaterList.get(i).getTheaterName().equals(theaterName) && entry.getValue().equals(mvName)) {
-					if (compare == 0) {
-						timeList.add(entry.getKey());
-					}
-				}
-			}
-		}
-
-		if (timeList.size() == 0) {
-			System.out.println("XXXXXXXXXXXXXXXXXXX");
-			System.out.println("해당 일자의 상영시간표가 존재하지 않습니다.");
-			System.out.println("XXXXXXXXXXXXXXXXXXX");
-		} else {
-			do {
-				System.out.println("==============================");
-				System.out.println("해당 극장의 상영시간표는 다음과 같습니다.");
-				System.out.println("==============================");
-				Collections.sort(timeList,new TimeTableTimeComparator());
-				Collections.sort(timeList, new TimeTableComparator());
-				for (int i = 0; i < timeList.size(); i++) {
-					if (i == 0) {
-						System.out.print("    [" + timeList.get(i).getShowRoomNum() + "관] " + (i + 1) + ". "
-								+ timeList.get(i).getStartTime() + " [" + timeList.get(i).getSeatCount() + "석]");
-					} else {
-						if (timeList.get(i - 1).getShowRoomNum() == timeList.get(i).getShowRoomNum()) {
-							System.out.print(" " + (i + 1) + ". " + timeList.get(i).getStartTime() + " ["
-									+ timeList.get(i).getSeatCount() + "석]");
-						} else {
-							System.out.println();
-							System.out.print("    [" + timeList.get(i).getShowRoomNum() + "관] " + (i + 1) + ". "
-									+ timeList.get(i).getStartTime() + " [" + timeList.get(i).getSeatCount() + "석]");
+		while (true) { // 날짜 잘 선택할 때 까지 반복
+			selectCalData();
+			int compare = 0;
+			for (int i = 0; i < theaterList.size(); i++) {
+				Set<Entry<TimeTable, String>> mapEntry = theaterList.get(i).getTimeMap().entrySet();
+				for (Entry<TimeTable, String> entry : mapEntry) {
+					compare = date.compareTo(entry.getKey().getDate());
+					// System.out.println(compare);
+					if (theaterList.get(i).getTheaterName().equals(theaterName) && entry.getValue().equals(mvName)) {
+						if (compare == 0) {
+							timeList.add(entry.getKey());
 						}
 					}
 				}
-				System.out.println();
-				System.out.println("==============================");
-				System.out.print("관람을 원하는 시간표를 선택해주세요 : ");
-				selectTime = Integer.parseInt(sc.nextLine());
-				System.out.println("==============================");
-				if (selectTime > timeList.size()) {
-					System.out.println("다시 입력해주세요.");
-				}
-			} while (selectTime > timeList.size());
-			timetable = timeList.get(selectTime - 1);
-			showSeat(timetable);
+			}
+
+			if (timeList.size() == 0) {
+				System.out.println("XXXXXXXXXXXXXXXXXXX");
+				System.out.println("해당 일자의 상영시간표가 존재하지 않습니다.");
+				System.out.println("XXXXXXXXXXXXXXXXXXX");
+			} else {
+				break;
+			}
 		}
+		do {
+			System.out.println("==============================");
+			System.out.println("해당 극장의 상영시간표는 다음과 같습니다.");
+			System.out.println("==============================");
+			Collections.sort(timeList, new TimeTableTimeComparator());
+			Collections.sort(timeList, new TimeTableComparator());
+			for (int i = 0; i < timeList.size(); i++) {
+				if (i == 0) {
+					System.out.print("    [" + timeList.get(i).getShowRoomNum() + "관] " + (i + 1) + ". "
+							+ timeList.get(i).getStartTime() + " [" + timeList.get(i).getSeatCount() + "석]");
+				} else {
+					if (timeList.get(i - 1).getShowRoomNum() == timeList.get(i).getShowRoomNum()) {
+						System.out.print(" " + (i + 1) + ". " + timeList.get(i).getStartTime() + " ["
+								+ timeList.get(i).getSeatCount() + "석]");
+					} else {
+						System.out.println();
+						System.out.print("    [" + timeList.get(i).getShowRoomNum() + "관] " + (i + 1) + ". "
+								+ timeList.get(i).getStartTime() + " [" + timeList.get(i).getSeatCount() + "석]");
+					}
+				}
+			}
+			System.out.println();
+			System.out.println("==============================");
+			System.out.print("관람을 원하는 시간표를 선택해주세요 : ");
+			selectTime = Integer.parseInt(sc.nextLine());
+			System.out.println("==============================");
+			if (selectTime > timeList.size()) {
+				System.out.println("다시 입력해주세요.");
+			}
+		} while (selectTime > timeList.size());
+		timetable = timeList.get(selectTime - 1);
+		showSeat(timetable);
+
 	}
 
 	// seatMap put class
@@ -396,7 +404,8 @@ public class SystemManager {
 			if (currentCustomer.getPrice() < price * seatNumberList.size()) {
 				System.out.println("사용자의 소지금액이 부족하여 예매가 취소 되었습니다.");
 			} else {
-				reserveList = new ReserveList(mvName, theaterName, seatNumberList, price * seatNumberList.size(),timetable);
+				reserveList = new ReserveList(mvName, theaterName, seatNumberList, price * seatNumberList.size(),
+						timetable);
 				currentCustomer.addRsvInfo(reserveList);
 				System.out.println("예매가 완료 되었습니다.");
 				currentCustomer.setPrice(currentCustomer.getPrice() - (price * seatNumberList.size()));
@@ -412,7 +421,7 @@ public class SystemManager {
 	public void seatListRemove(TimeTable timetable) {
 		int firstIndex = 0;
 		int secondIndex = 0;
-		
+
 		for (Integer integer : seatNumberList) {
 			if (integer % seatMap.get(timetable).getSeatLineNumber() == 0) {
 				firstIndex = (integer / seatMap.get(timetable).getSeatLineNumber()) - 1;
@@ -464,12 +473,12 @@ public class SystemManager {
 		System.out.println("5.좌석번호 : " + currentCustomer.getRsvList().get(selectNum - 1).getSeatNum());
 		System.out.print("예매 취소를 원하시면 'C', 메인메뉴로 돌아가시려면 'H'를 눌러주세요 : ");
 		String select = sc.nextLine();
-		
+
 		if (select.equalsIgnoreCase("C")) {
 			System.out.println("=======================================");
 			seatListRemove(currentCustomer.getRsvList().get(selectNum - 1));
 			ArrayList<ReserveList> rsvList = currentCustomer.getRsvList();
-			currentCustomer.returnMoney(currentCustomer.getRsvList().get(selectNum - 1).getPrice());			
+			currentCustomer.returnMoney(currentCustomer.getRsvList().get(selectNum - 1).getPrice());
 			rsvList.remove(selectNum - 1);
 			currentCustomer.setRsvList(rsvList);
 			System.out.println("예매 취소 완료!");
@@ -477,12 +486,12 @@ public class SystemManager {
 	}
 
 	public void seatListRemove(ReserveList reserveList) {
-		Seat seat = seatMap.get(reserveList.getTimeTable());			
+		Seat seat = seatMap.get(reserveList.getTimeTable());
 		int seatNum = seat.getSeatLineNumber();
-		
+
 		for (int i = 0; i < reserveList.getSeatNum().size(); i++) {
 			int seatNumber = reserveList.getSeatNum().get(i);
-			
+
 			if (seatNumber % seatNum == 0) {
 				int firstIndex = (seatNumber / seatNum) - 1;
 				int secondIndex = seatNum - 1;
