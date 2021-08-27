@@ -378,8 +378,7 @@ public class SystemManager {
 				System.out.println("사용자의 소지금액이 부족하여 예매가 취소 되었습니다.");
 				// System.out.println(currentCustomer.getPrice());
 			} else {
-				reserveList = new ReserveList(mvName, date, theaterName, timetable.getShowRoomNum(),
-						timetable.getStartTime(), seatNumberList, price * seatNumberList.size(), timetable);
+				reserveList = new ReserveList(mvName,  theaterName, seatNumberList, price * seatNumberList.size(), timetable);
 				// System.out.println(reserveList.getSeatNum());
 				currentCustomer.addRsvInfo(reserveList);
 				// ArrayList<ReserveList> resultTest = currentCustomer.getRsvList();

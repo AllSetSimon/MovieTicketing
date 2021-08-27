@@ -15,14 +15,13 @@ public class ReserveList {
 	ReserveList(){}
 
 	
-	public ReserveList(String title, Date rsvDate, String theaterName, int showRoomNum, String startTime,
-			ArrayList<Integer> seatNum, int price, TimeTable timeTable) {
+	public ReserveList(String title, String theaterName, ArrayList<Integer> seatNum, int price, TimeTable timeTable) {
 		super();
 		this.title = title;
-		this.rsvDate = rsvDate;
+		this.rsvDate = timeTable.getDate();
 		this.theaterName = theaterName;
-		this.showRoomNum = showRoomNum;
-		this.startTime = startTime;
+		this.showRoomNum = timeTable.getShowRoomNum();
+		this.startTime = timeTable.getStartTime();
 		this.seatNum = seatNum;
 		this.price = price;
 		this.timeTable= timeTable;
