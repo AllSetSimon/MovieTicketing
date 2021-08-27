@@ -23,8 +23,6 @@ public class Customer {
 		
 	}
 
-	
-
 	public Customer (String id , String pwd, String nickname,int price) {
 		this.id = id;
 		this.pwd = pwd;
