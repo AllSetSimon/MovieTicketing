@@ -382,29 +382,28 @@ public class SystemManager {
 		System.out.println("==============================");
 		Collections.sort(timeList, new TimeTableTimeComparator());
 		Collections.sort(timeList, new TimeTableComparator());
-		
+
 		while (true) {
-		
-		for (int i = 0; i < timeList.size(); i++) {
-			if (i == 0) {
-				System.out.print("    [" + timeList.get(i).getShowRoomNum() + "관] " + (i + 1) + ". "
-						+ timeList.get(i).getStartTime() + "[" + timeList.get(i).getRemainCount() + "/"
-						+ timeList.get(i).getSeatCount() + "석]");
-			} else {
-				if (timeList.get(i - 1).getShowRoomNum() == timeList.get(i).getShowRoomNum()) {
-					System.out.print(" " + (i + 1) + ". " + timeList.get(i).getStartTime() + "["
-							+ timeList.get(i).getRemainCount() + "/" + timeList.get(i).getSeatCount() + "석]");
-				} else {
-					System.out.println();
+
+			for (int i = 0; i < timeList.size(); i++) {
+				if (i == 0) {
 					System.out.print("    [" + timeList.get(i).getShowRoomNum() + "관] " + (i + 1) + ". "
 							+ timeList.get(i).getStartTime() + "[" + timeList.get(i).getRemainCount() + "/"
 							+ timeList.get(i).getSeatCount() + "석]");
+				} else {
+					if (timeList.get(i - 1).getShowRoomNum() == timeList.get(i).getShowRoomNum()) {
+						System.out.print(" " + (i + 1) + ". " + timeList.get(i).getStartTime() + "["
+								+ timeList.get(i).getRemainCount() + "/" + timeList.get(i).getSeatCount() + "석]");
+					} else {
+						System.out.println();
+						System.out.print("    [" + timeList.get(i).getShowRoomNum() + "관] " + (i + 1) + ". "
+								+ timeList.get(i).getStartTime() + "[" + timeList.get(i).getRemainCount() + "/"
+								+ timeList.get(i).getSeatCount() + "석]");
+					}
 				}
 			}
-		}
-		System.out.println();
+			System.out.println();
 
-		
 			System.out.println("==============================");
 			System.out.print("관람을 원하는 시간표를 선택해주세요 : ");
 			try {
@@ -544,6 +543,7 @@ public class SystemManager {
 			}
 			int selectNum = 0;
 			while (true) {
+				System.out.println("==============================");
 				System.out.print("상세내역을 원하는 항목을 선택하세요 : ");
 
 				try {
