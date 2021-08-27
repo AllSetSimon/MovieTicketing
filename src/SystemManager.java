@@ -1,6 +1,7 @@
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -76,6 +77,7 @@ public class SystemManager {
 		Theater lotteJamsil = new Theater("롯데시네마 잠실", "잠실");
 		Theater cgvGangnam = new Theater("CGV 강남", "강남");
 
+
 		lotteJamsil.setupTimeTable(sinkHole, new TimeTable("2021-08-25", "10:00", 4, 35));
 		lotteJamsil.setupTimeTable(sinkHole, new TimeTable("2021-08-25", "09:00", 4, 32));
 		lotteJamsil.setupTimeTable(sinkHole, new TimeTable("2021-08-25", "08:00", 5, 32));
@@ -85,9 +87,10 @@ public class SystemManager {
 		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-08-08", "13:00", 1, 50));
 		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-08-08", "14:00", 3, 40));
 		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-08-10", "15:00", 2, 20));
+		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-09-02", "15:00", 2, 20));
+		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-09-05", "15:00", 2, 20));
 		cgvGangnam.setupTimeTable(sinkHole, new TimeTable("2021-08-18", "16:00", 1, 15));
-		// cgvGangnam.setupTimeTable(mogaDS, new TimeTable("2021-08-16", "17:00", 2,
-		// 30));
+		// cgvGangnam.setupTimeTable(mogaDS, new TimeTable("2021-08-16", "17:00", 2,30));
 		cgvGangnam.setupTimeTable(bossBB, new TimeTable("2021-08-13", "18:00", 3, 60));
 
 		theaterList.add(lotteJamsil);
@@ -254,10 +257,44 @@ public class SystemManager {
 	}
 
 	public void selectCalData() {
-		myCalendar = new MyCalendar(2021, 8);
-		date = myCalendar.selecteDate();
+		myCalendar = new MyCalendar();
+		LocalDateTime now = LocalDateTime.now();
+		ArrayList<Integer> availableDayList = new ArrayList<Integer>(); // 이용가능한 날짜
+		theaterName = resultList.get(selNum - 1);
+		int settingYear = now.getYear();
+		int settingMonth = now.getMonthValue();
+		char[] inputBox = new char[] {' ',' '}; // '<' '>' 입력 체크 떄문제 추가...
+		while (true) {
+			availableDayList.clear(); // 이전 달 냐용 클리어
+			for (Theater theater : theaterList) {  //극장 전부 탐색
+				if (theater.getTheaterName().equals(theaterName)) { // 극장 전부 탐색
+					for (Map.Entry<TimeTable, String> entry : theater.getTimeMap().entrySet()) { // 극장 내 타임 테이블 전부 탐색
+						if (mvName.equals(entry.getValue())) {
+							if (settingYear == Integer.parseInt(entry.getKey().getDate().toString().substring(0, 4))) { // 년도 비교
+								if (settingMonth == Integer.parseInt(entry.getKey().getDate().toString().substring(5, 7))) { // 월 비교
+									availableDayList.add(Integer.parseInt(entry.getKey().getDate().toString().substring(8, 10))); // 날짜 입력
+								}
+							}
+						}
+
+					}
+				}
+			}
+			date = myCalendar.selecteDate(settingYear, settingMonth, availableDayList, inputBox);
+			if (date == null) {
+				if (inputBox[0] == '>') {
+					settingMonth++;
+				}
+				if (inputBox[0] == '<') {
+					settingMonth--;
+				}
+			} else {
+				break;
+			}
+		}
 		System.out.println("선택된 날짜 확인 : " + date);
 		showTimeList(selNum);
+
 	}
 
 	public void showTimeList(int selectNum) {
