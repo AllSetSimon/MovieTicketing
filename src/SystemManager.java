@@ -56,25 +56,30 @@ public class SystemManager {
 			e.printStackTrace();
 		}
 
+		// 고객 목록 추가
 		customerList.add(new Customer("갈아만든배", "1234", "강구현", 95000));
 		customerList.add(new Customer("Simon", "1234", "박수빈", 55000));
 		customerList.add(new Customer("뜬혁", "1234", "신승혁", 43000));
 		customerList.add(new Customer("SkyWalker", "1234", "임준석", 57000));
 		customerList.add(new Customer("svra0945", "1234", "장동주", 50000));
 
+		// 영화 객체 생성
 		Movie sinkHole = new Movie("싱크홀", "드라마", "김지훈", "차승원, 김성균, 이광수, 김혜준, 남다름 등",
 				"서울 입성과 함께 내 집 마련의 꿈을 이룬 가장 ‘동원(김성균)’ \n이사 첫날부터 프로 참견러 ‘만수’(차승원)와 사사건건 부딪힌다. \n‘동원’은 자가취득을 기념하며 직장 동료들을 집들이에 초대하지만 행복한 단꿈도 잠시, \n순식간에 빌라 전체가 땅 속으로 떨어지고 만다. \n마주치기만 하면 투닥거리는 빌라 주민 ‘만수’와 ‘동원’ ‘동원’의 집들이에 왔던 ‘김대리’(이광수)와 인턴사원 ‘은주’(김혜준)까지! \n지하 500m 싱크홀 속으로 떨어진 이들은 과연 무사히 빠져나갈 수 있을까? \n“한 500m 정도는 떨어진 것 같아” “우리… 나갈 수 있을까요?”",
 				"2021-08-11", 0.0);
 		Movie bossBB = new Movie("보스베이비2", "애니메이션", "세스로건", "보스", "보스베이비줄거리", "2021-08-07", 0.0);
 		Movie mogaDS = new Movie("모가디슈", "액션", "박찬봉", "조인성", "모가디슈줄거리", "2021-08-12", 0.0);
 
+		// 영화 리스트에 영화 객체 추가
 		showingList.add(sinkHole);
 		showingList.add(mogaDS);
 		showingList.add(bossBB);
 
+		// 극장 객체 생성
 		Theater lotteJamsil = new Theater("롯데시네마 잠실", "잠실");
 		Theater cgvGangnam = new Theater("CGV 강남", "강남");
 
+		// 극장 객체 내 메서드로 시간표 생성
 		lotteJamsil.setupTimeTable(sinkHole, new TimeTable("2021-08-25", "10:00", 4, 35));
 		lotteJamsil.setupTimeTable(sinkHole, new TimeTable("2021-08-25", "09:00", 4, 32));
 		lotteJamsil.setupTimeTable(sinkHole, new TimeTable("2021-08-25", "08:00", 5, 32));
@@ -90,11 +95,15 @@ public class SystemManager {
 		cgvGangnam.setupTimeTable(mogaDS, new TimeTable("2021-08-16", "17:00", 2, 30));
 		cgvGangnam.setupTimeTable(bossBB, new TimeTable("2021-08-13", "18:00", 3, 60));
 
+		// 극장 리스트에 객체 추가
 		theaterList.add(lotteJamsil);
 		theaterList.add(cgvGangnam);
+
+		// 좌석 초기화
 		showSeatMapAdd();
 	}
 
+	// 로그인 과정 상세 메서드
 	public void loginProcess() {
 		loginId = null;
 		Login login = new Login();
@@ -126,9 +135,10 @@ public class SystemManager {
 
 			System.out.println("==============================");
 
-			if (inputNum == 1) {
+			if (inputNum == 1) { // 세부정보 보는 Part
 				while (true) {
 					System.out.print("세부정보를 원하시는 영화를 선택해주세요(이전화면은 0번 입력):");
+
 					try {
 						selNum = Integer.parseInt(sc.nextLine());
 					} catch (NumberFormatException e) {
@@ -138,6 +148,7 @@ public class SystemManager {
 						// continue ;
 						break;
 					}
+
 					if (selNum != 0 && selNum <= showingList.size()) {
 						resultCode = showDetail(selNum);
 						System.out.println("========================================================");
@@ -152,7 +163,7 @@ public class SystemManager {
 					}
 					break;
 				}
-			} else if (inputNum == 2) {
+			} else if (inputNum == 2) {// 영화예매 Part
 				while (true) {
 					System.out.print("관람을 원하시는 영화를 선택해주세요(이전화면은 0번 입력):");
 
@@ -173,16 +184,16 @@ public class SystemManager {
 						System.out.println("==============================");
 						System.out.println("올바른 번호를 입력해주세요");
 						break;
-
 					} else if (selNum == 0) {
 						resultCode = 0;
 						break;
 					}
 					break;
 				}
-			} else if (inputNum == 3) {
+			} else if (inputNum == 3) { // 평점 Part
 				while (true) {
 					System.out.print("평점 입력을 원하는 영화를 선택해주세요 (메인메뉴로 가려면 0):");
+
 					try {
 						selNum = Integer.parseInt(sc.nextLine());
 					} catch (NumberFormatException e) {
@@ -209,53 +220,14 @@ public class SystemManager {
 			} else {
 				System.out.println("==============================");
 			}
+
 			if (flag)
 				break;
+
 		} while (resultCode == 1);
 	}
 
-	public void inputRating(int selectNum) {
-		System.out.println("====================");
-		System.out.println("선택한 영화 : " + showingList.get(selectNum - 1).getTitle());
-		System.out.println("해당 영화의 현재 평점 : " + String.format("%.2f", showingList.get(selectNum - 1).getRating()) + "점"
-				+ " [ " + showingList.get(selectNum - 1).getCount() + "명 참여]");
-		System.out.println("====================");
-		double inputScore = 0.0;
-
-		while (true) {
-			System.out.print("해당 영화의 평점을 입력해주세요 : ");
-			try {
-				inputScore = Double.parseDouble(sc.nextLine());
-				if (!(inputScore >= 0.0 && inputScore <= 10.0)) {
-					System.out.println("0부터 10점 이내의 평점 입력만 가능합니다.");
-					continue;
-				} else {
-					showingList.get(selectNum - 1).setRating(inputScore);
-
-					while (true) {
-						System.out.print("입력이 완료되었습니다. 다른 영화의 평점도 입력하시겠습니까? (Y/N) : ");
-						String inputRetry = sc.nextLine();
-						if (inputRetry.equalsIgnoreCase("Y")) {
-							nowShowing(3);
-							break;
-						} else if (inputRetry.equalsIgnoreCase("N")) {
-							System.out.println("메인으로 돌아갑니다.");
-							break;
-						} else {
-							System.out.println("정확하게 입력해주세요!");
-							continue;
-						}
-					}
-				}
-			} catch (Exception e) {
-				System.out.println("잘못된 형식입니다.");
-				continue;
-			}
-			break;
-		}
-	}
-
-	public int showDetail(int selectNum) {
+	public int showDetail(int selectNum) { // 영화 상세정보 출력 메서드
 		System.out.println("========================================================");
 		System.out.println("제목 : " + showingList.get(selectNum - 1).getTitle());
 		System.out.println("장르 : " + showingList.get(selectNum - 1).getGenre());
@@ -267,7 +239,7 @@ public class SystemManager {
 		return 1;
 	}
 
-	public void showTheater(int selectNum) {
+	public void showTheater(int selectNum) { // 상영 극장 관련 메서드
 		mvName = showingList.get(selectNum - 1).getTitle();
 		resultList.clear();
 
@@ -305,7 +277,7 @@ public class SystemManager {
 		}
 	}
 
-	public void selectCalData() {
+	public void selectCalData() { // 날짜 선택 관련 메서드
 		myCalendar = new MyCalendar();
 		LocalDateTime now = LocalDateTime.now();
 		ArrayList<Integer> availableDayList = new ArrayList<Integer>(); // 이용가능한 날짜
@@ -320,12 +292,10 @@ public class SystemManager {
 					for (Map.Entry<TimeTable, String> entry : theater.getTimeMap().entrySet()) { // 극장 내 타임 테이블 전부 탐색
 						if (mvName.equals(entry.getValue())) {
 							if (settingYear == Integer.parseInt(entry.getKey().getDate().toString().substring(0, 4))) { // 년도
-																														// 비교
 								if (settingMonth == Integer
 										.parseInt(entry.getKey().getDate().toString().substring(5, 7))) { // 월 비교
 									availableDayList.add(
 											Integer.parseInt(entry.getKey().getDate().toString().substring(8, 10))); // 날짜
-																														// 입력
 								}
 							}
 						}
@@ -345,13 +315,13 @@ public class SystemManager {
 			}
 		}
 		System.out.println("선택된 날짜 확인 : " + date);
-		// showTimeList(selNum);
 	}
 
-	public void showTimeList(int selectNum) {
+	public void showTimeList(int selectNum) { // 상영 시간표 관련 메서드
 		theaterName = resultList.get(selectNum - 1);
 		resultList.clear();
 		timeList.clear();
+		
 		while (true) { // 날짜 잘 선택할 때 까지 반복
 			selectCalData();
 			int compare = 0;
@@ -384,7 +354,6 @@ public class SystemManager {
 		Collections.sort(timeList, new TimeTableComparator());
 
 		while (true) {
-
 			for (int i = 0; i < timeList.size(); i++) {
 				if (i == 0) {
 					System.out.print("    [" + timeList.get(i).getShowRoomNum() + "관] " + (i + 1) + ". "
@@ -403,7 +372,6 @@ public class SystemManager {
 				}
 			}
 			System.out.println();
-
 			System.out.println("==============================");
 			System.out.print("관람을 원하는 시간표를 선택해주세요 : ");
 			try {
@@ -429,7 +397,7 @@ public class SystemManager {
 
 	}
 
-	// seatMap put class
+	// seatMap put 클래스
 	public void showSeatMapAdd() {
 		for (int i = 0; i < theaterList.size(); i++) {
 			for (int j = 0; j < theaterList.get(i).getTimeList().size(); j++) {
@@ -438,7 +406,7 @@ public class SystemManager {
 		}
 	}
 
-	// seat 출력 class
+	// seat 출력 클래스
 	public void showSeat(TimeTable timetable) {
 		seatNumberList = new ArrayList<Integer>();
 		seatMap.get(timetable).seatLook();
@@ -450,7 +418,7 @@ public class SystemManager {
 		}
 	}
 
-	public void showFinalRsv() {
+	public void showFinalRsv() { // 최종 예매 정보 관련 메서드
 		String time = timetable.getStartTime();
 		String[] timePieces = time.split(":");
 		int numTime = Integer.parseInt(timePieces[0]);
@@ -526,7 +494,48 @@ public class SystemManager {
 		seatMap.get(timetable).setSeatList(seatMap.get(timetable).getSeatList());
 	}
 
-	public void showRsvInfo() {
+	public void inputRating(int selectNum) { // 평점 입력 메서드
+		System.out.println("====================");
+		System.out.println("선택한 영화 : " + showingList.get(selectNum - 1).getTitle());
+		System.out.println("해당 영화의 현재 평점 : " + String.format("%.2f", showingList.get(selectNum - 1).getRating()) + "점"
+				+ " [ " + showingList.get(selectNum - 1).getCount() + "명 참여]");
+		System.out.println("====================");
+		double inputScore = 0.0;
+
+		while (true) {
+			System.out.print("해당 영화의 평점을 입력해주세요 : ");
+			try {
+				inputScore = Double.parseDouble(sc.nextLine());
+				if (!(inputScore >= 0.0 && inputScore <= 10.0)) {
+					System.out.println("0부터 10점 이내의 평점 입력만 가능합니다.");
+					continue;
+				} else {
+					showingList.get(selectNum - 1).setRating(inputScore);
+
+					while (true) {
+						System.out.print("입력이 완료되었습니다. 다른 영화의 평점도 입력하시겠습니까? (Y/N) : ");
+						String inputRetry = sc.nextLine();
+						if (inputRetry.equalsIgnoreCase("Y")) {
+							nowShowing(3);
+							break;
+						} else if (inputRetry.equalsIgnoreCase("N")) {
+							System.out.println("메인으로 돌아갑니다.");
+							break;
+						} else {
+							System.out.println("정확하게 입력해주세요!");
+							continue;
+						}
+					}
+				}
+			} catch (Exception e) {
+				System.out.println("잘못된 형식입니다.");
+				continue;
+			}
+			break;
+		}
+	}
+
+	public void showRsvInfo() { // 예매 내역 관련 메서드
 		if (currentCustomer.getRsvList().size() == 0) {
 			System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 			System.out.println("    " + currentCustomer.getNickname() + "님의 예매 내역이 존재하지 않습니다.    ");
@@ -564,7 +573,7 @@ public class SystemManager {
 		}
 	}
 
-	public void showDetailList(int selectNum) {
+	public void showDetailList(int selectNum) { // 예매 내역 상세 조회 메서드
 
 		System.out.println("=======================================");
 		System.out.println("  " + currentCustomer.getNickname() + "님께서 선택하신 예매 정보는 다음과 같습니다.   ");
@@ -602,7 +611,7 @@ public class SystemManager {
 
 	}
 
-	public void seatListRemove(ReserveList reserveList) {
+	public void seatListRemove(ReserveList reserveList) { // 좌석 삭제 메서드
 		Seat seat = seatMap.get(reserveList.getTimeTable());
 		int seatNum = seat.getSeatLineNumber();
 
@@ -625,7 +634,7 @@ public class SystemManager {
 		}
 	}
 
-	public boolean reLogin() {
+	public boolean reLogin() { // 로그아웃 관련 메서드
 		String answer = null;
 		currentCustomer = null;
 		System.out.println("로그아웃 되었습니다.");
@@ -639,16 +648,19 @@ public class SystemManager {
 				else
 					return false;
 			} else if (answer.equals("no")) {
+				System.out.println("프로그램을 종료합니다.");
 				return false;
 			} else
 				System.out.println("yes or no 를 입력해주세요");
 		}
 	}
 
-	public void checkRsv() {
+	public void checkRsv() { // 예약 내역 확인 관련 메서드
 		showRsvInfo();
 	}
 
+	
+	//Getter Setter
 	public Customer getCurrentCustomer() {
 		return currentCustomer;
 	}
