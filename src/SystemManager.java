@@ -76,8 +76,10 @@ public class SystemManager {
 		Theater lotteJamsil = new Theater("롯데시네마 잠실", "잠실");
 		Theater cgvGangnam = new Theater("CGV 강남", "강남");
 
-		lotteJamsil.setupTimeTable(sinkHole, new TimeTable("2021-08-25", "09:00", 5, 35));
-		lotteJamsil.setupTimeTable(sinkHole, new TimeTable("2021-08-25", "10:00", 4, 32));
+		lotteJamsil.setupTimeTable(sinkHole, new TimeTable("2021-08-25", "10:00", 4, 35));
+		lotteJamsil.setupTimeTable(sinkHole, new TimeTable("2021-08-25", "09:00", 4, 32));
+		lotteJamsil.setupTimeTable(sinkHole, new TimeTable("2021-08-25", "08:00", 5, 32));
+		lotteJamsil.setupTimeTable(sinkHole, new TimeTable("2021-08-25", "07:00", 6, 32));
 		lotteJamsil.setupTimeTable(mogaDS, new TimeTable("2021-08-12", "11:00", 7, 36));
 		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-08-07", "12:00", 6, 38));
 		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-08-08", "13:00", 1, 50));
@@ -289,7 +291,9 @@ public class SystemManager {
 				System.out.println("==============================");
 				System.out.println("해당 극장의 상영시간표는 다음과 같습니다.");
 				System.out.println("==============================");
+				Collections.sort(timeList,new TimeTableTimeComparator());
 				Collections.sort(timeList, new TimeTableComparator());
+				
 				for (int i = 0; i < timeList.size(); i++) {
 					if (i == 0) {
 						System.out.print("    [" + timeList.get(i).getShowRoomNum() + "관] " + (i + 1) + ". "
