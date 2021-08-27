@@ -21,7 +21,6 @@ public class SystemManager {
 	private ArrayList<TimeTable> timeList;
 	private ArrayList<String> resultList;
 	private Map<TimeTable, Seat> seatMap;
-	private ArrayList<TimeTable> timeTable = new ArrayList<TimeTable>();
 
 	private ReserveList reserveList;
 	private MyCalendar myCalendar;
@@ -324,7 +323,6 @@ public class SystemManager {
 	public void showSeatMapAdd() {
 		for (int i = 0; i < theaterList.size(); i++) {
 			for (int j = 0; j < theaterList.get(i).getTimeList().size(); j++) {
-				timeTable.add(theaterList.get(i).getTimeList().get(j));
 				seatMap.put(theaterList.get(i).getTimeList().get(j), new Seat(theaterList.get(i).getTimeList().get(j)));
 			}
 		}
@@ -465,10 +463,8 @@ public class SystemManager {
 		if (select.equalsIgnoreCase("C")) {
 			System.out.println("=======================================");
 
-			for (int i = 0; i < currentCustomer.getRsvList().get(selectNum - 1).getSeatNum().size(); i++) {
-				seatListRemove(currentCustomer.getRsvList().get(selectNum - 1).getSeatNum().get(i), selectNum,
-						currentCustomer.getRsvList().get(selectNum - 1));
-			}
+			seatListRemove(currentCustomer.getRsvList().get(selectNum - 1));
+
 			ArrayList<ReserveList> rsvList = currentCustomer.getRsvList();
 			rsvList.remove(selectNum - 1);
 			currentCustomer.setRsvList(rsvList);
@@ -478,25 +474,31 @@ public class SystemManager {
 		}
 	}
 
-	public void seatListRemove(int seatNumber, int selectNum, ReserveList reserveList) {
-
-		int firstIndex = 0;
-		int secondIndex = 0;
-
-		Seat seat = seatMap.get(reserveList.getTimeTable());
+	public void seatListRemove(ReserveList reserveList) {
+		
+		Seat seat = seatMap.get(reserveList.getTimeTable());			
 		int seatNum = seat.getSeatLineNumber();
-		if (seatNumber % seatNum == 0) {
-			firstIndex = (seatNumber / seatNum) - 1;
-			secondIndex = seatNum - 1;
-			seat.getSeatList()[firstIndex][secondIndex] = String.valueOf(seat.getSeatSelectPossible());
-			seat.setSeatList(seat.getSeatList());
-		} else {
-			firstIndex = seatNumber / seatNum;
-			secondIndex = (seatNumber % seatNum) - 1;
-			seat.getSeatList()[firstIndex][secondIndex] = String.valueOf(seat.getSeatSelectPossible());
-			seat.setSeatList(seat.getSeatList());
+		
+		for (int i = 0; i < reserveList.getSeatNum().size(); i++) {
+			
+			int seatNumber = reserveList.getSeatNum().get(i);
+			
+			if (seatNumber % seatNum == 0) {
+				
+				int firstIndex = (seatNumber / seatNum) - 1;
+				int secondIndex = seatNum - 1;
+				seat.getSeatList()[firstIndex][secondIndex] = String.valueOf(seat.getSeatSelectPossible());
+				seat.setSeatList(seat.getSeatList());
+				
+			} else {
+				
+				int firstIndex = seatNumber / seatNum;
+				int secondIndex = (seatNumber % seatNum) - 1;
+				seat.getSeatList()[firstIndex][secondIndex] = String.valueOf(seat.getSeatSelectPossible());
+				seat.setSeatList(seat.getSeatList());
+				
+			}
 		}
-
 	}
 
 	public boolean reLogin() {
