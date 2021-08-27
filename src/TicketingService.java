@@ -51,9 +51,11 @@ public class TicketingService {
 						break;
 					}
 				} else {
+					System.out.println("==============================");
 					System.out.println("번호를 잘못 입력하셨습니다.");
 				}
 			}catch (Exception e) {
+				System.out.println("==============================");
 				System.out.println("잘못된 형식의 값입니다.");
 			}
 		}

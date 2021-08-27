@@ -112,9 +112,9 @@ public class SystemManager {
 
 	public void nowShowing(int inputNum) {
 		// 상영중인 영화 리스트 출력
-		int resultCode = 0; 
+		int resultCode = 0;
 		boolean flag = false;
-		
+
 		do {
 			System.out.println("==============================");
 			System.out.println("       현재 상영중인 영화입니다");
@@ -127,22 +127,25 @@ public class SystemManager {
 			System.out.println("==============================");
 
 			if (inputNum == 1) {
-				while(true) {
+				while (true) {
 					System.out.print("세부정보를 원하시는 영화를 선택해주세요(이전화면은 0번 입력):");
 					try {
 						selNum = Integer.parseInt(sc.nextLine());
-					} catch (Exception e) {
+					} catch (NumberFormatException e) {
+						resultCode = 1;
+						System.out.println("==============================");
 						System.out.println("형식에 알맞지 않습니다");
-						resultCode = 0;
-						continue ;
+						// continue ;
+						break;
 					}
 					if (selNum != 0 && selNum <= showingList.size()) {
 						resultCode = showDetail(selNum);
 						System.out.println("========================================================");
-						//nowShowing(1);
 					} else if (selNum > showingList.size()) {
+						resultCode = 1;
+						System.out.println("==============================");
 						System.out.println("올바른 번호를 입력해주세요");
-						continue;
+						break;
 					} else if (selNum == 0) {
 						flag = true;
 						break;
@@ -156,8 +159,9 @@ public class SystemManager {
 					try {
 						selNum = Integer.parseInt(sc.nextLine());
 					} catch (Exception e) {
-						System.out.println("입력값에 오류가 있습니다.");
-						continue;
+						System.out.println("==============================");
+						System.out.println("형식이 올바르지 않습니다.");
+						break;
 					}
 
 					if (selNum != 0 && selNum <= showingList.size()) {
@@ -165,8 +169,11 @@ public class SystemManager {
 						resultCode = 0;
 						break;
 					} else if (selNum > showingList.size()) {
-						System.out.println("올바른 번호를 입력해주세요");
 						resultCode = 1;
+						System.out.println("==============================");
+						System.out.println("올바른 번호를 입력해주세요");
+						break;
+
 					} else if (selNum == 0) {
 						resultCode = 0;
 						break;
@@ -176,12 +183,13 @@ public class SystemManager {
 			} else if (inputNum == 3) {
 				while (true) {
 					System.out.print("평점 입력을 원하는 영화를 선택해주세요 (메인메뉴로 가려면 0):");
-
 					try {
 						selNum = Integer.parseInt(sc.nextLine());
 					} catch (NumberFormatException e) {
+						resultCode = 1;
+						System.out.println("==============================");
 						System.out.println("입력 값에 오류가 있습니다.");
-						continue;
+						break;
 					}
 
 					if (selNum != 0 && selNum <= showingList.size()) {
@@ -189,6 +197,7 @@ public class SystemManager {
 						resultCode = 0;
 						break;
 					} else if (selNum > showingList.size()) {
+						System.out.println("==============================");
 						System.out.println("올바른 번호를 입력해주세요");
 						resultCode = 1;
 					} else if (selNum == 0) {
@@ -200,7 +209,7 @@ public class SystemManager {
 			} else {
 				System.out.println("==============================");
 			}
-			if(flag)
+			if (flag)
 				break;
 		} while (resultCode == 1);
 	}
@@ -266,13 +275,13 @@ public class SystemManager {
 			resultList.add(theaterList.get(i).getMovieMap().get(mvName));
 		}
 		System.out.println("==============================");
-
-		for (int i = 0; i < resultList.size(); i++) {
-			if (resultList.get(i) != null) {
-				System.out.println((i + 1) + "." + resultList.get(i));
-			}
-		}
 		while (true) {
+			for (int i = 0; i < resultList.size(); i++) {
+				if (resultList.get(i) != null) {
+					System.out.println((i + 1) + "." + resultList.get(i));
+				}
+			}
+
 			System.out.println("==============================");
 			System.out.print("관람을 원하는 극장을 선택해주세요:");
 			try {
@@ -280,11 +289,15 @@ public class SystemManager {
 			} catch (Exception e) {
 				System.out.println("==============================");
 				System.out.println("올바른 형식으로 입력해주세요");
+				System.out.println("==============================");
 				continue;
+				// break;
 			}
 			System.out.println("==============================");
 			if (selNum == 0 || selNum > resultList.size()) {
 				System.out.println("다시 입력해주세요!");
+				System.out.println("==============================");
+				// break;
 			} else {
 				showTimeList(selNum);
 				break;
@@ -369,6 +382,9 @@ public class SystemManager {
 		System.out.println("==============================");
 		Collections.sort(timeList, new TimeTableTimeComparator());
 		Collections.sort(timeList, new TimeTableComparator());
+		
+		while (true) {
+		
 		for (int i = 0; i < timeList.size(); i++) {
 			if (i == 0) {
 				System.out.print("    [" + timeList.get(i).getShowRoomNum() + "관] " + (i + 1) + ". "
@@ -388,18 +404,22 @@ public class SystemManager {
 		}
 		System.out.println();
 
-		while (true) {
+		
 			System.out.println("==============================");
 			System.out.print("관람을 원하는 시간표를 선택해주세요 : ");
 			try {
 				selectTime = Integer.parseInt(sc.nextLine());
 			} catch (NumberFormatException e) {
+				System.out.println("==============================");
 				System.out.println("입력 형태가 일치하지 않습니다.");
+				System.out.println("==============================");
 				continue;
 			}
 
 			if (selectTime > timeList.size()) {
+				System.out.println("==============================");
 				System.out.println("다시 입력해주세요.");
+				System.out.println("==============================");
 				continue;
 			} else {
 				timetable = timeList.get(selectTime - 1);
@@ -525,14 +545,14 @@ public class SystemManager {
 			int selectNum = 0;
 			while (true) {
 				System.out.print("상세내역을 원하는 항목을 선택하세요 : ");
-				
+
 				try {
 					selectNum = Integer.parseInt(sc.nextLine());
-				}catch (NumberFormatException e) {
+				} catch (NumberFormatException e) {
 					System.out.println("잘못된 형식의 값입니다.");
 					continue;
 				}
-				
+
 				if (selectNum > currentCustomer.getRsvList().size()) {
 					System.out.println("올바른 항목을 선택해주세요!");
 					continue;
@@ -558,6 +578,7 @@ public class SystemManager {
 		System.out.println("5.좌석번호 : " + currentCustomer.getRsvList().get(selectNum - 1).getSeatNum());
 
 		while (true) {
+			System.out.println("==============================");
 			System.out.print("예매 취소를 원하시면 'C', 메인메뉴로 돌아가시려면 'H'를 눌러주세요 : ");
 			String select = sc.nextLine();
 
