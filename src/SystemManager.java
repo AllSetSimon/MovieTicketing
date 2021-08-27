@@ -133,6 +133,7 @@ public class SystemManager {
 						System.out.println("========================================================");
 					} else if (selNum > showingList.size()) {
 						System.out.println("올바른 번호를 입력해주세요:");
+						resultCode = 1;
 					} else if (selNum == 0) {
 						break;
 					}
@@ -147,8 +148,11 @@ public class SystemManager {
 						selNum = Integer.parseInt(sc.nextLine());
 						if (selNum != 0 && selNum <= showingList.size()) {
 							showTheater(selNum);
+							resultCode = 0;
+							break;
 						} else if (selNum > showingList.size()) {
 							System.out.println("올바른 번호를 입력해주세요");
+							resultCode = 1;
 						} else if (selNum == 0) {
 							break;
 						}
@@ -158,9 +162,24 @@ public class SystemManager {
 					}
 				}
 			} else if (inputNum == 3) {
-				System.out.print("평점 입력을 원하는 영화를 선택해주세요:");
-				selNum = Integer.parseInt(sc.nextLine());
-				inputRating(selNum);
+				while(true) {
+					System.out.print("평점 입력을 원하는 영화를 선택해주세요:");
+					try {
+						selNum = Integer.parseInt(sc.nextLine());
+					}catch (NumberFormatException e) {
+						System.out.println("입력 값에 오류가 있습니다.");
+						continue;
+					}
+					
+					if (selNum != 0 && selNum <= showingList.size()) {
+						inputRating(selNum);
+						break;
+					} else if (selNum > showingList.size()) {
+						System.out.println("올바른 번호를 입력해주세요");
+						resultCode = 1;
+					} 
+					break;
+				}
 			} else {
 				System.out.println("==============================");
 			}
@@ -339,7 +358,14 @@ public class SystemManager {
 			System.out.println();
 			System.out.println("==============================");
 			System.out.print("관람을 원하는 시간표를 선택해주세요 : ");
-			selectTime = Integer.parseInt(sc.nextLine());
+			
+			try {
+				selectTime = Integer.parseInt(sc.nextLine());				
+			} catch (NumberFormatException e) {
+				System.out.println("입력 형태가 일치하지 않습니다.");
+				continue;
+			}
+			
 			System.out.println("==============================");
 			if (selectTime > timeList.size()) {
 				System.out.println("다시 입력해주세요.");
@@ -347,7 +373,6 @@ public class SystemManager {
 		} while (selectTime > timeList.size());
 		timetable = timeList.get(selectTime - 1);
 		showSeat(timetable);
-
 	}
 
 	// seatMap put class
@@ -454,10 +479,18 @@ public class SystemManager {
 						+ currentCustomer.getRsvList().get(i).getRsvDate() + " / "
 						+ currentCustomer.getRsvList().get(i).getTheaterName());
 			}
-
-			System.out.print("상세내역을 원하는 항목을 선택하세요 : ");
-			int selectNum = Integer.parseInt(sc.nextLine());
-			showDetailList(selectNum);
+			int selectNum = 0;
+			while(true) {
+				System.out.print("상세내역을 원하는 항목을 선택하세요 : ");
+				selectNum = Integer.parseInt(sc.nextLine());
+				if(selectNum > currentCustomer.getRsvList().size()) {
+					System.out.println("올바른 항목을 선택해주세요!");
+					continue;
+				}else {
+					showDetailList(selectNum);
+					break;
+				}
+			}
 		}
 	}
 
