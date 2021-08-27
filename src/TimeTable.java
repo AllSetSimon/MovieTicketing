@@ -6,7 +6,8 @@ public class TimeTable {
 	private String date;
 	private String startTime;
 	private int showRoomNum; // »ó¿µ°ü
-	private int seatCount; // ÁÂ¼®°³¼ö
+	private int remainCount;// ÀÜ¿© ÁÂ¼® °³¼ö
+	private int seatCount; // ÃÑ ÁÂ¼®°³¼ö
 	
 	//»ı¼ºÀÚ
 	public TimeTable() {
@@ -16,6 +17,7 @@ public class TimeTable {
 		this.date = date;
 		this.startTime = startTime;
 		this.showRoomNum = showRoomNum;
+		this.remainCount = seatCount;
 		this.seatCount = seatCount;
 	}
 	
@@ -43,5 +45,15 @@ public class TimeTable {
 	}
 	public void setSeatCount(int seatCount) {
 		this.seatCount = seatCount;
+	}
+	public int getRemainCount() {
+		return remainCount;
+	}
+	
+	public void setRemainMinus(int number) {
+		remainCount = remainCount - number;
+	}
+	public void setRemainPlus(int number) {
+		remainCount = remainCount + number;
 	}
 }
