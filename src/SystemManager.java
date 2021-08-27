@@ -378,7 +378,8 @@ public class SystemManager {
 				System.out.println("사용자의 소지금액이 부족하여 예매가 취소 되었습니다.");
 				// System.out.println(currentCustomer.getPrice());
 			} else {
-				reserveList = new ReserveList(mvName,  theaterName, seatNumberList, price * seatNumberList.size(), timetable);
+				reserveList = new ReserveList(mvName, theaterName, seatNumberList, price * seatNumberList.size(),
+						timetable);
 				// System.out.println(reserveList.getSeatNum());
 				currentCustomer.addRsvInfo(reserveList);
 				// ArrayList<ReserveList> resultTest = currentCustomer.getRsvList();
@@ -466,7 +467,8 @@ public class SystemManager {
 			System.out.println("=======================================");
 
 			for (int i = 0; i < currentCustomer.getRsvList().get(selectNum - 1).getSeatNum().size(); i++) {
-				seatListRemove(currentCustomer.getRsvList().get(selectNum - 1).getSeatNum().get(i), selectNum);
+				seatListRemove(currentCustomer.getRsvList().get(selectNum - 1).getSeatNum().get(i), selectNum,
+						currentCustomer.getRsvList().get(selectNum - 1));
 			}
 			ArrayList<ReserveList> rsvList = currentCustomer.getRsvList();
 			rsvList.remove(selectNum - 1);
@@ -477,30 +479,25 @@ public class SystemManager {
 		}
 	}
 
-	public void seatListRemove(int seatNumber, int selectNum) {
+	public void seatListRemove(int seatNumber, int selectNum, ReserveList reserveList) {
 
 		int firstIndex = 0;
 		int secondIndex = 0;
-		TimeTable timeTable = new TimeTable();
 
-		for (int i = 0; i < this.timeTable.size(); i++) {
-			if (currentCustomer.getRsvList().get(selectNum - 1).getTimeTable() == this.timeTable.get(i)) {
-				timeTable = this.timeTable.get(i);
-				Seat seat = seatMap.get(timeTable);
-				int seatNum = seat.getSeatLineNumber();
-				if (seatNumber % seatNum == 0) {
-					firstIndex = (seatNumber / seatNum) - 1;
-					secondIndex = seatNum - 1;
-					seat.getSeatList()[firstIndex][secondIndex] = String.valueOf(seat.getSeatSelectPossible());
-					seat.setSeatList(seat.getSeatList());
-				} else {
-					firstIndex = seatNumber / seatNum;
-					secondIndex = (seatNumber % seatNum) - 1;
-					seat.getSeatList()[firstIndex][secondIndex] = String.valueOf(seat.getSeatSelectPossible());
-					seat.setSeatList(seat.getSeatList());
-				}
-			}
+		Seat seat = seatMap.get(reserveList.getTimeTable());
+		int seatNum = seat.getSeatLineNumber();
+		if (seatNumber % seatNum == 0) {
+			firstIndex = (seatNumber / seatNum) - 1;
+			secondIndex = seatNum - 1;
+			seat.getSeatList()[firstIndex][secondIndex] = String.valueOf(seat.getSeatSelectPossible());
+			seat.setSeatList(seat.getSeatList());
+		} else {
+			firstIndex = seatNumber / seatNum;
+			secondIndex = (seatNumber % seatNum) - 1;
+			seat.getSeatList()[firstIndex][secondIndex] = String.valueOf(seat.getSeatSelectPossible());
+			seat.setSeatList(seat.getSeatList());
 		}
+
 	}
 
 	public boolean reLogin() {
