@@ -163,16 +163,16 @@ public class SystemManager {
 				}
 			} else if (inputNum == 3) {
 				while(true) {
-					System.out.print("평점 입력을 원하는 영화를 선택해주세요:");
+					System.out.print("평점 입력을 원하는 영화를 선택해주세요 (메인메뉴로 가려면 0):");
 					try {
 						selNum = Integer.parseInt(sc.nextLine());
 					}catch (NumberFormatException e) {
 						System.out.println("입력 값에 오류가 있습니다.");
 						continue;
 					}
-					
 					if (selNum != 0 && selNum <= showingList.size()) {
 						inputRating(selNum);
+						resultCode = 0;
 						break;
 					} else if (selNum > showingList.size()) {
 						System.out.println("올바른 번호를 입력해주세요");
