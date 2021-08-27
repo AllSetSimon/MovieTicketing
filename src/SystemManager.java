@@ -112,7 +112,9 @@ public class SystemManager {
 
 	public void nowShowing(int inputNum) {
 		// 상영중인 영화 리스트 출력
-		int resultCode = 0; //
+		int resultCode = 0; 
+		boolean flag = false;
+		
 		do {
 			System.out.println("==============================");
 			System.out.println("       현재 상영중인 영화입니다");
@@ -132,15 +134,17 @@ public class SystemManager {
 					} catch (Exception e) {
 						System.out.println("형식에 알맞지 않습니다");
 						resultCode = 0;
-						continue;
+						continue ;
 					}
 					if (selNum != 0 && selNum <= showingList.size()) {
 						resultCode = showDetail(selNum);
 						System.out.println("========================================================");
+						//nowShowing(1);
 					} else if (selNum > showingList.size()) {
-						System.out.println("올바른 번호를 입력해주세요:");
+						System.out.println("올바른 번호를 입력해주세요");
 						continue;
 					} else if (selNum == 0) {
+						flag = true;
 						break;
 					}
 					break;
@@ -196,6 +200,8 @@ public class SystemManager {
 			} else {
 				System.out.println("==============================");
 			}
+			if(flag)
+				break;
 		} while (resultCode == 1);
 	}
 
@@ -274,6 +280,7 @@ public class SystemManager {
 			} catch (Exception e) {
 				System.out.println("==============================");
 				System.out.println("올바른 형식으로 입력해주세요");
+				continue;
 			}
 			System.out.println("==============================");
 			if (selNum == 0 || selNum > resultList.size()) {
