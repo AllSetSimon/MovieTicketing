@@ -189,7 +189,7 @@ public class MyCalendar {
 
 		START_DAY_OF_WEEK = start.get(Calendar.DAY_OF_WEEK); // 첫날에 요일 구하기 1:일요일 7:토요일
 		END_DAY = end.get(Calendar.DATE); // 마지막 일자 구하기
-		System.out.println(year + "년 " + month + "월 달력\\t(>입력:다음달출력  <입력:이전달출력)");
+		System.out.println(year + "년 " + month + "월 달력\t(>입력:다음달출력  <입력:이전달출력)");
 		System.out.println("일\t월\t화\t수\t목\t금\t토");
 
 		for (int q = 1; q < START_DAY_OF_WEEK; q++) { // 첫날 요일 까진 공백
