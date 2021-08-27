@@ -10,13 +10,13 @@ public class ReserveList {
 	private String startTime;
 	private ArrayList<Integer> seatNum; 
 	private int price;
-	
+	private TimeTable timeTable;
 	//»ý¼ºÀÚ
 	ReserveList(){}
 
 	
 	public ReserveList(String title, Date rsvDate, String theaterName, int showRoomNum, String startTime,
-			ArrayList<Integer> seatNum, int price) {
+			ArrayList<Integer> seatNum, int price, TimeTable timeTable) {
 		super();
 		this.title = title;
 		this.rsvDate = rsvDate;
@@ -25,6 +25,7 @@ public class ReserveList {
 		this.startTime = startTime;
 		this.seatNum = seatNum;
 		this.price = price;
+		this.timeTable= timeTable;
 	}
 
 
@@ -83,4 +84,13 @@ public class ReserveList {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	public TimeTable getTimeTable() {
+		return timeTable;
+	}
+
+
+	public void setTimeTable(TimeTable timeTable) {
+		this.timeTable = timeTable;
+	}
+	
 }

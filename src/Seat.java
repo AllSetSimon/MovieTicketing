@@ -12,11 +12,11 @@ public class Seat {
 	private char seatSelectPossible = '\u25A1'; // 좌석선택가능 □
 	private char seatSelectImpossible = '\u25A0'; // 좌석선택불가능 ■
 	private String[][] seatList; // 좌석들을 저장하는이중배열
-	private Scanner scanner = new Scanner(System.in);
+	private Scanner Seatscanner = new Scanner(System.in);
 	private ArrayList<Integer> allSeatRangementList = new ArrayList<>(); // 선택된 모든 좌석의 번호들이 저장되는 배열
 	private ArrayList<Integer> seatRangementList = new ArrayList<>();// 한 손님이 선택한 좌석 번호
 	private int seatRangementNumbers;
-	
+
 	// 생성자
 	Seat() {
 	}
@@ -45,7 +45,7 @@ public class Seat {
 		}
 		for (int i = remainder; i < seatLineNumber; i++) {
 			this.seatList[LineNumber][i] = " ";
-		}	
+		}
 	}
 
 	// get,set메소드
@@ -89,7 +89,6 @@ public class Seat {
 		this.seatRangementList = seatRangementList;
 	}
 
-	
 	public ArrayList<Integer> getAllSeatRangementList() {
 		return allSeatRangementList;
 	}
@@ -98,17 +97,36 @@ public class Seat {
 		this.allSeatRangementList = allSeatRangementList;
 	}
 
+	public char getSeatSelectPossible() {
+		return seatSelectPossible;
+	}
+
+	public void setSeatSelectPossible(char seatSelectPossible) {
+		this.seatSelectPossible = seatSelectPossible;
+	}
+
+	public char getSeatSelectImpossible() {
+		return seatSelectImpossible;
+	}
+
+	public void setSeatSelectImpossible(char seatSelectImpossible) {
+		this.seatSelectImpossible = seatSelectImpossible;
+	}
+	
+	public Scanner getSeatscanner() {
+		return Seatscanner;
+	}
+
+	public void setSeatscanner(Scanner seatscanner) {
+		Seatscanner = seatscanner;
+	}
+
 	// 메소드
 	public void seatLook() {
-		for(Integer item : allSeatRangementList) {
-			System.out.println("예약된 번호들 "+item+" ");
-		};
-		seatRangementList.removeAll(this.allSeatRangementList);
-		for(Integer item : allSeatRangementList) {
-			System.out.println("예약된 번호들 "+item+" ");
-		};
-		
-		Loop1: while (true) {
+
+		seatRangementList.clear();
+
+		loop: do {
 			System.out.println("===============================");
 			for (int i = 0; i < (seatLineNumber / 2); i++) {
 				System.out.print(" ");
@@ -134,105 +152,98 @@ public class Seat {
 			System.out.println(seatSelectPossible + ": 선택 가능한 좌석");
 			System.out.println(seatSelectImpossible + ": 선택 불가한 좌석");
 			System.out.println("===============================");
-			
-			/*
-			System.out.println("===============================");
-			System.out.print("이미 선택된 좌석들입니다:");
-			for (Integer integer : getAllSeatRangementList()) {
-				System.out.print(integer+",");
-			}
-			System.out.println("");
-			
-			System.out.println("===============================");
-			*/
-			
-			System.out.print("선택하신 좌석 : ");
+
+			System.out.print("선택하신 좌석들입니다:");
 			for (Integer integer : getSeatRangementList()) {
-				System.out.print(integer+",");
+				System.out.print(integer + ",");
 			}
 			System.out.println("");
 			System.out.println("===============================");
-			
+
 			seatSelect();
-			
-			if(seatRangementNumbers==0) {
-				
-				if(seatRangementList.size() == 0) {
-					System.out.println("선택하신 좌석이 없습니다.");
-				} else {
-					System.out.println();
-					System.out.println("예매 최종 확인 단계로 넘어갑니다.");
-					break Loop1;
+
+			if (seatRangementList.size() == 0 && seatRangementNumbers == 0) {
+				System.out.println("좌석을 하나도 선택하지 않으셨습니다.");
+				while (true) {
+					System.out.println("계속 좌석을 선택하시려면 'yes'를 그대로 종료를 원하시면 'no'를 입력해주세요.");
+					String check = Seatscanner.nextLine();
+					if (check.equals("yes")) {
+						break;
+					} else if (check.equals("no")) {
+						break loop;
+					} else {
+						System.out.println("잘못입력하셨습니다.");
+					}
 				}
-				//ReserveList의 객체 생성
-				//ReserveList reserveList= new ReserveList();
-				
-				// 예매 확인 메소드 호출하기
-				//reserveList.method();
-				
-			}			
-		}
+			}
+
+		} while (!(seatRangementList.size() >= 1 && seatRangementNumbers == 0));
 	}
 
 	public void seatSelect() {
 		while (true) {
+
 			this.seatRangementNumbers = seatSelectNumber();
-			int fristIndex = 0;
+			int firstIndex = 0;
 			int secondIndex = 0;
-			if(seatRangementNumbers==0) {
+			if (seatRangementNumbers == 0) {
 				break;
 			}
 			if (seatRangementNumbers % seatLineNumber == 0) {
-				fristIndex = (seatRangementNumbers / seatLineNumber) - 1;
+				firstIndex = (seatRangementNumbers / seatLineNumber) - 1;
 				secondIndex = seatLineNumber - 1;
 			} else {
-				fristIndex = seatRangementNumbers / seatLineNumber;
+				firstIndex = seatRangementNumbers / seatLineNumber;
 				secondIndex = (seatRangementNumbers % seatLineNumber) - 1;
 			}
-			System.out.println(this.seatList[fristIndex][secondIndex]);
 
-			if (this.seatList[fristIndex][secondIndex].equals(String.valueOf(seatSelectPossible))) {
+			if (this.seatList[firstIndex][secondIndex].equals(String.valueOf(seatSelectPossible))) {
 
-				this.seatList[fristIndex][secondIndex] = String.valueOf(seatSelectImpossible);
+				this.seatList[firstIndex][secondIndex] = String.valueOf(seatSelectImpossible);
 
 				this.seatRangementList.add(seatRangementNumbers);
 				Collections.sort(seatRangementList);
-				
 				this.allSeatRangementList.add(seatRangementNumbers);
 				Collections.sort(allSeatRangementList);
 				break;
 
-			} else if (this.seatList[fristIndex][secondIndex].equals(String.valueOf(seatSelectImpossible))) {
+			} else if (this.seatList[firstIndex][secondIndex].equals(String.valueOf(seatSelectImpossible))) {
 
 				System.out.println("이미 선택된 좌석입니다.");
 
 			} else {
-				
+
 				System.out.println("선택하실 좌석 번호를 다시 입력해주세요");
-				
+
 			}
 		}
 	}
 
 	public int seatSelectNumber() {
 		while (true) {
+			// 여기 타입 다르게 입력시에 NumberFormatException 오류 발생
+			try {
+				System.out.println("원하는 좌석 번호를 입력해주세요.(종료를 원하시면  0을 입력해주세요.)");
+				int seatRangementNumbers = Integer.parseInt(Seatscanner.nextLine());
 
-			System.out.println("원하는 좌석 번호를 입력해주세요.(종료를 원하시면  0을 입력해주세요.)");
-			int seatRangementNumbers = Integer.parseInt(scanner.nextLine());
+				if (seatRangementNumbers > 0 && seatRangementNumbers <= seatNumber) {
 
-			if (seatRangementNumbers > 0 && seatRangementNumbers <= seatNumber) {
+					System.out.println("선택한 좌석번호 :" + seatRangementNumbers);
+					return seatRangementNumbers;
 
-				//System.out.println("선택한 좌석번호 :" + seatRangementNumbers);
-				return seatRangementNumbers;
+				} else if (seatRangementNumbers == 0) {
+
+					return seatRangementNumbers;
+
+				} else {
+					
+					System.out.println("선택할 수 있는 좌석 범위를 넘으셨습니다,다시 입력해주세요.");
+				}
 				
-			} else if(seatRangementNumbers == 0){
-				return seatRangementNumbers;
-				
-			} else {
-				
-				System.out.println("선택한 좌석이 없습니다,다시 입력해주세요.");
-				
+			} catch (NumberFormatException e) {
+				System.out.println("번호가 아닙니다. 번호를 골라주세요.");
 			}
+
 		}
 	}
 
