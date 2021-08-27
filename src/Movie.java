@@ -8,7 +8,7 @@ public class Movie {
 	private String release; //개봉일
 	private double rating; //관객평점
 	
-	private int count;
+	private int count; //평가한 인원수 카운트
 	
 	public Movie() {}
 	
@@ -58,6 +58,7 @@ public class Movie {
 	public void setRelease(String release) {
 		this.release = release;
 	}
+	
 	public double getRating() {
 		if(rating == 0.0) {
 			return rating;
@@ -65,6 +66,7 @@ public class Movie {
 			return rating / count;
 		}
 	}
+	
 	public void setRating(double rating) {
 		count += 1;
 		if(count == 1) {			

@@ -11,6 +11,7 @@ public class ReserveList {
 	private ArrayList<Integer> seatNum; 
 	private int price;
 	private TimeTable timeTable;
+	
 	//»ý¼ºÀÚ
 	ReserveList(){}
 
@@ -24,7 +25,6 @@ public class ReserveList {
 		this.showRoomNum = timeTable.getShowRoomNum();
 		this.startTime = timeTable.getStartTime();
 	}
-
 
 	public String getTitle() {
 		return title;
@@ -81,13 +81,12 @@ public class ReserveList {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	
 	public TimeTable getTimeTable() {
 		return timeTable;
 	}
 
-
 	public void setTimeTable(TimeTable timeTable) {
 		this.timeTable = timeTable;
 	}
-	
 }

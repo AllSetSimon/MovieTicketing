@@ -18,6 +18,7 @@ public class Customer {
 	private int price;
 	private ArrayList<ReserveList> rsvList ;
 	private int selectNum;
+	
 	// »ý¼ºÀÚ
 	public Customer(){
 		
@@ -42,7 +43,6 @@ public class Customer {
 	}
 	
 	// Getter Setter
-	
 	public String getId() {
 		return id;
 	}
@@ -93,6 +93,10 @@ public class Customer {
 
 	public void addRsvInfo(ReserveList rsv) {
 		rsvList.add(rsv);
+	}
+	
+	public void returnMoney(int price){
+		this.price += price;
 	}
 
 }

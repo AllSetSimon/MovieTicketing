@@ -19,11 +19,6 @@ public class TimeTable {
 		this.seatCount = seatCount;
 	}
 	
-	//¸Þ¼­µå
-//	public String getDate() {
-//		return date;
-//	}
-	
 	public Date getDate() {
 		java.sql.Date transformDate = java.sql.Date.valueOf(this.date); 
 		return transformDate;

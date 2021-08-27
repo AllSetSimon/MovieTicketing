@@ -4,14 +4,14 @@ import java.util.Collections;
 
 public class Seat {
 
-	// 변수
-	private int seatNumber;// 총좌석수
-	private int seatLineNumber;// 라인당 좌석수
-	private int LineNumber;// 라인수
-	private int remainder;
 	private char seatSelectPossible = '\u25A1'; // 좌석선택가능 □
 	private char seatSelectImpossible = '\u25A0'; // 좌석선택불가능 ■
-	private String[][] seatList; // 좌석들을 저장하는이중배열
+
+	private int seatNumber;// 총 좌석 수
+	private int seatLineNumber;// 라인 당 좌석 수
+	private int LineNumber;// 라인 수
+	private int remainder; // 좌석표 생성 시 떨어지지 않는 나머지 좌석의 수
+	private String[][] seatList; // 좌석들을 저장하는 이중 배열
 	private Scanner Seatscanner = new Scanner(System.in);
 	private ArrayList<Integer> allSeatRangementList = new ArrayList<>(); // 선택된 모든 좌석의 번호들이 저장되는 배열
 	private ArrayList<Integer> seatRangementList = new ArrayList<>();// 한 손님이 선택한 좌석 번호
@@ -22,15 +22,13 @@ public class Seat {
 	}
 
 	Seat(TimeTable timeTable) {
-
 		this.seatNumber = timeTable.getSeatCount();
-		// this.seatNumber = seatNumber;
 		if (seatNumber <= 50) {
 			this.seatLineNumber = 5;
 		} else {
 			this.seatLineNumber = 10;
 		}
-
+		
 		this.LineNumber = seatNumber / seatLineNumber;
 		this.seatList = new String[LineNumber + 1][seatLineNumber];
 		this.remainder = seatNumber % seatLineNumber;
@@ -40,9 +38,11 @@ public class Seat {
 				this.seatList[i][j] = String.valueOf(seatSelectPossible);
 			}
 		}
+		
 		for (int i = 0; i < remainder; i++) {
 			this.seatList[LineNumber][i] = String.valueOf(seatSelectPossible);
 		}
+		
 		for (int i = remainder; i < seatLineNumber; i++) {
 			this.seatList[LineNumber][i] = " ";
 		}
@@ -112,7 +112,7 @@ public class Seat {
 	public void setSeatSelectImpossible(char seatSelectImpossible) {
 		this.seatSelectImpossible = seatSelectImpossible;
 	}
-	
+
 	public Scanner getSeatscanner() {
 		return Seatscanner;
 	}
@@ -121,11 +121,9 @@ public class Seat {
 		Seatscanner = seatscanner;
 	}
 
-	// 메소드
+	//메소드
 	public void seatLook() {
-
 		seatRangementList.clear();
-
 		loop: do {
 			System.out.println("===============================");
 			for (int i = 0; i < (seatLineNumber / 2); i++) {
@@ -152,14 +150,12 @@ public class Seat {
 			System.out.println(seatSelectPossible + ": 선택 가능한 좌석");
 			System.out.println(seatSelectImpossible + ": 선택 불가한 좌석");
 			System.out.println("===============================");
-
 			System.out.print("선택하신 좌석들입니다:");
 			for (Integer integer : getSeatRangementList()) {
 				System.out.print(integer + ",");
 			}
 			System.out.println("");
 			System.out.println("===============================");
-
 			seatSelect();
 
 			if (seatRangementList.size() == 0 && seatRangementNumbers == 0) {
@@ -176,13 +172,11 @@ public class Seat {
 					}
 				}
 			}
-
 		} while (!(seatRangementList.size() >= 1 && seatRangementNumbers == 0));
 	}
 
 	public void seatSelect() {
 		while (true) {
-
 			this.seatRangementNumbers = seatSelectNumber();
 			int firstIndex = 0;
 			int secondIndex = 0;
@@ -198,23 +192,16 @@ public class Seat {
 			}
 
 			if (this.seatList[firstIndex][secondIndex].equals(String.valueOf(seatSelectPossible))) {
-
 				this.seatList[firstIndex][secondIndex] = String.valueOf(seatSelectImpossible);
-
 				this.seatRangementList.add(seatRangementNumbers);
 				Collections.sort(seatRangementList);
 				this.allSeatRangementList.add(seatRangementNumbers);
 				Collections.sort(allSeatRangementList);
 				break;
-
 			} else if (this.seatList[firstIndex][secondIndex].equals(String.valueOf(seatSelectImpossible))) {
-
 				System.out.println("이미 선택된 좌석입니다.");
-
 			} else {
-
 				System.out.println("선택하실 좌석 번호를 다시 입력해주세요");
-
 			}
 		}
 	}
@@ -227,24 +214,16 @@ public class Seat {
 				int seatRangementNumbers = Integer.parseInt(Seatscanner.nextLine());
 
 				if (seatRangementNumbers > 0 && seatRangementNumbers <= seatNumber) {
-
 					System.out.println("선택한 좌석번호 :" + seatRangementNumbers);
 					return seatRangementNumbers;
-
 				} else if (seatRangementNumbers == 0) {
-
 					return seatRangementNumbers;
-
 				} else {
-					
 					System.out.println("선택할 수 있는 좌석 범위를 넘으셨습니다,다시 입력해주세요.");
 				}
-				
 			} catch (NumberFormatException e) {
 				System.out.println("번호가 아닙니다. 번호를 골라주세요.");
 			}
-
 		}
 	}
-
 }
