@@ -57,11 +57,11 @@ public class SystemManager {
 		}
 
 		// °í°´ ¸ñ·Ï Ãß°¡
-		customerList.add(new Customer("°¥¾Æ¸¸µç¹è", "1234", "°­±¸Çö", 95000));
-		customerList.add(new Customer("Simon", "1234", "¹Ú¼öºó", 55000));
-		customerList.add(new Customer("¶áÇõ", "1234", "½Å½ÂÇõ", 43000));
-		customerList.add(new Customer("SkyWalker", "1234", "ÀÓÁØ¼®", 57000));
-		customerList.add(new Customer("svra0945", "1234", "Àåµ¿ÁÖ", 50000));
+		customerList.add(new Customer("°¥¾Æ¸¸µç¹è", "1", "°­±¸Çö", 95000));
+		customerList.add(new Customer("Simon", "2", "¹Ú¼öºó", 55000));
+		customerList.add(new Customer("¶áÇõ", "3", "½Å½ÂÇõ", 43000));
+		customerList.add(new Customer("SkyWalker", "4", "ÀÓÁØ¼®", 57000));
+		customerList.add(new Customer("svra0945", "5", "Àåµ¿ÁÖ", 50000));
 
 		// ¿µÈ­ °´Ã¼ »ý¼º
 		Movie sinkHole = new Movie("½ÌÅ©È¦", "µå¶ó¸¶", "±èÁöÈÆ", "Â÷½Â¿ø, ±è¼º±Õ, ÀÌ±¤¼ö, ±èÇýÁØ, ³²´Ù¸§ µî",
@@ -84,6 +84,8 @@ public class SystemManager {
 		lotteJamsil.setupTimeTable(sinkHole, new TimeTable("2021-08-25", "09:00", 4, 32));
 		lotteJamsil.setupTimeTable(sinkHole, new TimeTable("2021-08-25", "08:00", 5, 32));
 		lotteJamsil.setupTimeTable(sinkHole, new TimeTable("2021-08-25", "07:00", 6, 32));
+		lotteJamsil.setupTimeTable(sinkHole, new TimeTable("2021-07-20", "07:00", 6, 32));
+		lotteJamsil.setupTimeTable(sinkHole, new TimeTable("2021-09-07", "07:00", 6, 32));
 		lotteJamsil.setupTimeTable(mogaDS, new TimeTable("2021-08-12", "11:00", 7, 36));
 		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-08-07", "12:00", 6, 38));
 		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-08-08", "13:00", 1, 50));
@@ -91,7 +93,7 @@ public class SystemManager {
 		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-08-10", "15:00", 2, 20));
 		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-09-02", "15:00", 2, 20));
 		lotteJamsil.setupTimeTable(bossBB, new TimeTable("2021-09-05", "15:00", 2, 20));
-		cgvGangnam.setupTimeTable(sinkHole, new TimeTable("2021-08-18", "16:00", 1, 15));
+		//cgvGangnam.setupTimeTable(sinkHole, new TimeTable("2021-08-18", "16:00", 1, 15));
 		cgvGangnam.setupTimeTable(mogaDS, new TimeTable("2021-08-16", "17:00", 2, 30));
 		cgvGangnam.setupTimeTable(bossBB, new TimeTable("2021-08-13", "18:00", 3, 60));
 
@@ -234,7 +236,7 @@ public class SystemManager {
 		System.out.println("°¨µ¶ : " + showingList.get(selectNum - 1).getDirector());
 		System.out.println("Ãâ¿¬Áø : " + showingList.get(selectNum - 1).getActor());
 		System.out.println("°³ºÀÀÏ : " + showingList.get(selectNum - 1).getRelease());
-		System.out.println("°ü°´ÆòÁ¡ : " + showingList.get(selectNum - 1).getRating());
+		System.out.println("°ü°´ÆòÁ¡ : " + String.format("%.2f", showingList.get(selectNum - 1).getRating()) + "Á¡");
 		System.out.println("ÁÙ°Å¸® : " + showingList.get(selectNum - 1).getPlot());
 		return 1;
 	}
@@ -244,7 +246,9 @@ public class SystemManager {
 		resultList.clear();
 
 		for (int i = 0; i < theaterList.size(); i++) {
-			resultList.add(theaterList.get(i).getMovieMap().get(mvName));
+			if (theaterList.get(i).getMovieMap().get(mvName) != null) {
+				resultList.add(theaterList.get(i).getMovieMap().get(mvName));
+			}
 		}
 		System.out.println("==============================");
 		while (true) {
@@ -255,6 +259,7 @@ public class SystemManager {
 			}
 
 			System.out.println("==============================");
+			//System.out.println(resultList.get(1));
 			System.out.print("°ü¶÷À» ¿øÇÏ´Â ±ØÀåÀ» ¼±ÅÃÇØÁÖ¼¼¿ä:");
 			try {
 				selNum = Integer.parseInt(sc.nextLine());
